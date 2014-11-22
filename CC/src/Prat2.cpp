@@ -60,10 +60,9 @@ Items[21] = new ManaPotion("Pocao Media De Mana", 200, 60);
 Items[22] = new ManaPotion("Pocao Grande De Mana", 300, 100);
 bool loop = true;
 //Montar rodada e times.
-for(int i=0; i<10; i++) rngdeque.push_back(i); 
+for(int i=0; i<23; i++) rngdeque.push_back(i); 
 while(loop)
 {
-
 	int Option, teamChosen;
 	printf("Luka to Jojo no RPG:");
 	printf("Escolha seu time:\nRed - 0\nBlue - 1");
@@ -108,8 +107,8 @@ while(loop)
 	{
 		while(loja)
 		{
-			printf("Luka to Jojo no RPG:\nMarketplace for %s :\nO que deseja comprar?", Players[i].getName());
-			printf("\n\nArmaduras:          	 |Preço|Defesa|Peso|Nro da Opcao|")
+			printf("Luka to Jojo no RPG:\nMarketplace for %s :\nGold Disponivel: %lf\nO que deseja comprar?", Players[i].getName(), Players[i].getTotalGold());
+			printf("\n\nArmaduras:           |Preço|Defesa|Peso|Nro da Opcao|")
 			printf("\nEscudo de Ferro     	 |  100|     3|  30|           0|");
 			printf("\nArmadura de Ferro   	 |  100|     3|  45|           1|");
 			printf("\nCapacete de Ferro   	 |  100|     3|  20|           2|");
@@ -127,14 +126,14 @@ while(loop)
 			printf("\nFaca de Ferro     	 |  100|     2|           13|");
 			printf("\nPistola Tranquilizadora|  800|     4|           14|");
 			printf("\nMetralhadora           | 3000|     9|           15|");
-			printf("\n\nPoções:               |Preço|Regen|Nro da Opcao|")
-			printf("\nPocao Pequena de Vida |   50|   20|          16|");
-			printf("\nPocao Media de Vida   |  100|   40|          17|");
-			printf("\nPocao Grande de Vida  |  150|   60|          18|");
-			printf("\nPocao de Yggdrasil    |  200|  100|          19|");
-			printf("\nPocao Pequena De Mana |  100|   30|          20|");
-			printf("\nPocao Media De Mana   |  200|   60|          21|");
-			printf("\nPocao Grande De Mana  |  300|  100|          22|");
+			printf("\n\nPoções:              |Preço|Regen|Nro da Opcao|")
+			printf("\nPocao Pequena de Vida  |   50|   20|          16|");
+			printf("\nPocao Media de Vida    |  100|   40|          17|");
+			printf("\nPocao Grande de Vida   |  150|   60|          18|");
+			printf("\nPocao de Yggdrasil     |  200|  100|          19|");
+			printf("\nPocao Pequena De Mana  |  100|   30|          20|");
+			printf("\nPocao Media De Mana    |  200|   60|          21|");
+			printf("\nPocao Grande De Mana   |  300|  100|          22|");
 			printf("\nSair da loja - Opcao 23");
 			scanf("%d", &Option);
 			while(Option<0||Option>23)
@@ -142,10 +141,53 @@ while(loop)
 				printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
 				scanf("%d", &Option);
 			}
-			if(Option==0)
+			if(Option<23)
+			{
+				if(Option<6)
+				{
+					if(rngdeque[Option]==Option)
+					{
+						Item* Bought = new Armor(*Items[Option]); // construtor de copia
+						rngdeque.erase(rngdeque.begin()+Option);
+						Players[i]->getItem(Bought);
+						Players[i]->equipArmor(Bought);
+						Players[i].spendGold(Bought->getPrice());
+					}
+				}
+				else if(Option<16)
+				{
+					if(rngdeque[Option]==Option) // nao permite equipar mais de uma armadura nem a mesma
+					{
+						Item* Bought = new Weapon(*Items[Option]);
+						rngdeque.erase(rngdeque.begin()+Option);
+						Players[i]->getItem(Bought);
+						Players[i]->equipWeapon(Bought);
+						Players[i].spendGold(Bought->getPrice());
+					}
+				}
+				else if(Option<20)
+				{
+					Item* Bought = new HealthPotion(*Items[Option]);
+					Players[i]->getItem(Bought);	
+					Players[i].spendGold(Bought->getPrice());
+				}
+				else
+				{
+					Item* Bought = new ManaPotion(*Items[Option]);
+					Players[i]->getItem(Bought);
+					Players[i].spendGold(Bought->getPrice());
+				}
+			}
+			else
+			{
+				loja=false;
+			}
 			system("CLEAR");
 		}
 	}
+	printf("Luka to Jojo no RPG: BATTLE START");
+	this_thread::sleep_for(std::chrono::milliseconds(3000));
+	/*Inserir sistema de luta aqui*/
 }
 
 for(int i=0; i<8; i++) rngdeque.push_back(i); //Colocar ints em uma deque para evitar repeticao.
