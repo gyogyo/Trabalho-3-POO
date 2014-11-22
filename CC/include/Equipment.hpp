@@ -5,36 +5,36 @@
 #include <string>
 using namespace std;
 
-class Weapon : public Item {    
-//Atributos
-	protected:
-	int attackpts;
-	double range;
-
+class Weapon : public Item {
 //Metodos
 	public:
-	Weapon(string,double,int,double);
+	Weapon(string,double,int);
 	Weapon(Weapon&);
-	int getAttackPts();
-	int getDefensePts();
-	double getRange();
 	void use();
 };
 
-class Armor : public Item {    
-//Atributos
-	protected:
-	int defensepts;
-	double weight;
-
+class Armor : public Item {
 //Metodos
 	public:
-	Armor(string,double,int,double);
+	Armor(string,double,int);
 	Armor(Armor&);
-	int getAttackPts();
-	int getDefensePts();
-	double getWeight();
 	void use();
+};
+
+class HealthPotion : public Item {
+//Metodos
+	public:
+	HealthPotion(string,double,int);
+	~HealthPotion();
+	virtual void use();
+};
+
+class ManaPotion : public Item {
+//Metodos
+	public:
+	ManaPotion(string,double,int);
+	~ManaPotion();
+	virtual void use();
 };
 
 #endif
