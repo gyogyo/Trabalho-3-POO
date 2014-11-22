@@ -19,6 +19,7 @@ class Knight : public Character {
 
 	public:
 	Knight(string, int);
+	Knight(string, int, int, int, int, int);
 	void attack(Character*);
 	void addPower(int);
 };
@@ -36,6 +37,7 @@ class Wizard : public Character {
 
 	public:
 	Wizard(string, int);
+	Wizard(string, int, int, int, int, int);
 	void attack(Character*);
 	void addWisdom(int);
 };
@@ -53,7 +55,44 @@ class Thief : public Character {
 
 	public:
 	Thief(string, int);
+	Thief(string, int, int, int, int, int);
 	void attack(Character*);
 	void addStealth(int);
+};
+
+class Duelist : public Character {      
+//Atributos
+
+	protected:
+	int proficiency;
+
+//Metodos
+
+	int getAttackPoints();
+	int getDefensePoints();
+
+	public:
+	Duelist(string, int);
+	Duelist(string, int, int, int, int, int);
+	void attack(Character*);
+	void addProficiency(int);
+};
+
+class Paladin : public Character {      
+//Atributos
+
+	protected:
+	int holy;
+
+//Metodos
+
+	int getAttackPoints();
+	int getDefensePoints();
+
+	public:
+	Paladin(string, int);
+	Paladin(string, int, int, int, int, int);
+	void attack(Character*);
+	void addHoly(int);
 };
 #endif

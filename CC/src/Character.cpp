@@ -10,7 +10,7 @@ alias = Name;
 HP = 100;
 MP = 100;
 XP = 1;
-
+willpower=1.0;
 //Logica para os pontos: Ha 4 Rands() seguidos, que puxam de um total de 97 pontos cumulativos.
 //O algoritmo foi feito para que sempre ao menos sobre 1 ponto, para evitar a divisao por 0.
 //Desse modo, ha na verdade, 96 pontos disponiveis, ja que o minimo de cada um dos quatro atributos e 1.
@@ -23,6 +23,19 @@ limite -= (speed-1);
 dexterity = ((rand()/double(RAND_MAX))*limite)+1;
 limite -= (dexterity-1);
 constitution = limite;
+}
+
+Character::Character(string Name, int Strength, int Speed,  int Dexterity, int Constitution){
+alias = Name;
+HP = 100;
+MP = 100;
+XP = 1;
+willpower=1.0;
+
+strenght = Strength;
+basespeed = speed = Speed;
+dexterity = Dexterity;
+constitution = Constitution;
 }
 
 //Getters
@@ -71,6 +84,17 @@ if(Amount>0&&Amount<101) dexterity = Amount;
 
 void Character::setConstitution(int Amount){
 if(Amount>0&&Amount<101) constitution = Amount;
+}
+
+void Character::physiqueUp(){
+if(willpower==1)
+	willpower=2;
+else if(willpower==2)
+	willpower=5;
+}
+
+void Character::physiqueDown(){
+	willpower=1;
 }
 
 void Character::PrintInfo(){ //Debug Print

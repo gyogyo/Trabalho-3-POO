@@ -14,72 +14,140 @@ int main(){
 deque<int> rngdeque; //Deque para uso na ordenaçao aleatoria de times.
 
 //Alguns personagens de RPG.
-Character* Players[8];
-Players[0] = new Knight("Loto",10);
-Players[1] = new Knight("Ramza",3);
-Players[2] = new Knight("Marth",5);
-Players[3] = new Wizard("Ness",3);
-Players[4] = new Wizard("Magus",8);
-Players[5] = new Wizard("Merlin",9);
-Players[6] = new Thief("Vaan",2);
-Players[7] = new Thief("Snake",10);
+Character* Players[10];
+Players[0] = new Knight("Rad",4,55,10,15,20);
+Players[1] = new Knight("Ramza",5,40,10,10,40);
+Players[2] = new Wizard("Merlin",4,40,15,35,10);
+Players[3] = new Wizard("Medea",5,60,15,15,10);
+Players[4] = new Thief("Lupin",3,20,30,45,5);
+Players[5] = new Thief("X",4,30,20,35,15);
+Players[6] = new Duelist("X",5,60,30,5,5);
+Players[7] = new Duelist("Akatsuki",6,40,20,35,5);
+Players[8] = new Paladin("Dyceldarg",7,20,5,5,70);
+Players[9] = new Paladin("Larkberg",4,25,5,15,55);
 
 Team* Teams[2];
 Teams[0] = new Team("Red",red);
 Teams[1] = new Team("Blue",blue);
 
-/*
-Armor* Armors[6];
-Weapon* Weapons[10];
-Potion* Potions[8];
-*/
-Item* Items[24];
+Item* Items[23];
 
 Items[0] = new Armor("Escudo de Ferro", 100, 3, 30);
 Items[1] = new Armor("Armadura de Ferro", 100, 3, 45);
 Items[2] = new Armor("Capacete de Ferro", 100, 3, 20);
-
 Items[3] = new Armor("Botas de Couro", 100, 3, 15);
 Items[4] = new Armor("Bracelete Abencoado", 500, 2, 15);
-
 Items[5] = new Armor("Amuleto Da Sorte", 10, 1, 5);
 
 Items[6] = new Weapon("Espada Lendaria", 600, 7, 7);
 Items[7] = new Weapon("Osafune", 300, 3, 5);
 Items[8] = new Weapon("Ame No Murakamo", 500, 5, 6);
 Items[9] = new Weapon("Falchion", 240, 4, 8);
-
 Items[10] = new Weapon("Bastao de Beisebol", 100, 4, 4);
 Items[11] = new Weapon("Foice Maligna", 600, 6, 10);
 Items[12] = new Weapon("Cajado Mistico", 900, 3, 10);
-
 Items[13] = new Weapon("Faca de Ferro", 100, 2, 3);
 Items[14] = new Weapon("Pistola Tranquilizadora", 800, 4, 10);
 Items[15] = new Weapon("Metralhadora", 3000, 9, 10);
 
-Items[16] = new HealthPotion("Pocao Pequena De Vida", 50, 20);
-Items[17] = new HealthPotion("Pocao Media De Vida", 100, 40);
-Items[18] = new HealthPotion("Pocao Grande De Vida", 150, 60);
-Items[19] = new HealthPotion("Pocao Extra Grande De Vida", 200, 80);
-Items[20] = new HealthPotion("Pocao Que Cura Tudo", 250, 100);
+Items[16] = new HealthPotion("Pocao Pequena de Vida", 50, 20);
+Items[17] = new HealthPotion("Pocao Media de Vida", 100, 40);
+Items[18] = new HealthPotion("Pocao Grande de Vida", 150, 60);
+Items[19] = new HealthPotion("Pocao de Yggdrasil", 200, 100);
 
-Items[21] = new ManaPotion("Pocao Pequena De Mana", 100, 30);
-Items[22] = new ManaPotion("Pocao Media De Mana", 200, 60);
-Items[23] = new ManaPotion("Pocao Grande De Mana", 300, 100);
-
-//Os items sao achados, nao comprados. Portanto, sem manipulacao de gold ainda.
-Players[0]->getItem(Items[0]);	Players[0]->getItem(Items[6]);	Players[1]->getItem(Items[7]);	Players[1]->getItem(Items[8]);
-Players[2]->getItem(Items[1]);	Players[2]->getItem(Items[9]);	Players[3]->getItem(Items[10]);	Players[3]->getItem(Items[3]);
-Players[4]->getItem(Items[11]);	Players[4]->getItem(Items[2]);	Players[5]->getItem(Items[12]);	Players[5]->getItem(Items[4]);
-Players[6]->getItem(Items[13]);	Players[6]->getItem(Items[5]);	Players[7]->getItem(Items[14]);	Players[7]->getItem(Items[15]);
-
-//Equipando os items criados
-Players[0]->equipArmor(Items[0]);	Players[0]->equipWeapon(Items[6]);	Players[1]->equipWeapon(Items[7]);	Players[1]->equipWeapon(Items[8]);
-Players[2]->equipArmor(Items[1]);	Players[2]->equipWeapon(Items[9]);	Players[3]->equipWeapon(Items[10]);	Players[3]->equipArmor(Items[3]);
-Players[4]->equipWeapon(Items[11]);	Players[4]->equipArmor(Items[2]);	Players[5]->equipWeapon(Items[12]);	Players[5]->equipArmor(Items[4]);
-Players[6]->equipWeapon(Items[13]);	Players[6]->equipArmor(Items[5]);	Players[7]->equipWeapon(Items[14]);	Players[7]->equipWeapon(Items[15]);
-
+Items[20] = new ManaPotion("Pocao Pequena De Mana", 100, 30);
+Items[21] = new ManaPotion("Pocao Media De Mana", 200, 60);
+Items[22] = new ManaPotion("Pocao Grande De Mana", 300, 100);
+bool loop = true;
 //Montar rodada e times.
+for(int i=0; i<10; i++) rngdeque.push_back(i); 
+while(loop)
+{
+
+	int Option, teamChosen;
+	printf("Luka to Jojo no RPG:");
+	printf("Escolha seu time:\nRed - 0\nBlue - 1");
+	while(Option<0||Option>1)
+	{
+		printf("Opção Inválida. Escolha novamente");
+		scanf("%d", &Option);
+	}
+	if(Option==0)
+	{
+		printf("\nTime %d escolhido", teamChosen);
+		teamChosen=0
+	}
+	else
+	{
+		printf("\nTime %d escolhido", teamChosen);
+		teamChosen=1;
+	}
+	system("CLEAR");
+	printf("Luka to Jojo no RPG:\nMonte seu time escolhendo três personagens abaixo: ");
+	for(int i = 0 ; i < 10 ; i++)
+	{
+		Printf("\nOpção %d: --------------", i);
+		Players[0].PrintInfo();
+		printf("\n");
+	}
+	for(int i = 0; i < 3 ; i++)
+	{
+		printf("\nEscolha %d personagens!", (3-i));
+		scanf("%d", &Option);
+		while(Option<0||Option>9)
+		{
+			printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
+		}
+		printf("\n%s escolhido!", Players[i].getName());
+		Teams[teamChosen]->addChar(Players[i]);
+	}
+	system("CLEAR");
+	bool loja=true;
+	for(int i =0 ; i < 3 ; i++)
+	{
+		while(loja)
+		{
+			printf("Luka to Jojo no RPG:\nMarketplace for %s :\nO que deseja comprar?", Players[i].getName());
+			printf("\n\nArmaduras:          	 |Preço|Defesa|Peso|Nro da Opcao|")
+			printf("\nEscudo de Ferro     	 |  100|     3|  30|           0|");
+			printf("\nArmadura de Ferro   	 |  100|     3|  45|           1|");
+			printf("\nCapacete de Ferro   	 |  100|     3|  20|           2|");
+			printf("\nBotas de Couro      	 |  100|     3|  15|           3|");
+			printf("\nBracelete Abencoado 	 |  500|     2|  15|           4|");
+			printf("\nAmuleto Da Sorte    	 |   10|     1|   5|           5|");
+			printf("\n\nArmas:            	 |Preço|Ataque|Nro da Opcao|")
+			printf("\nEspada Lendaria     	 |  600|     7|           6|");
+			printf("\nOsafune             	 |  300|     3|           7|");
+			printf("\nAme No Murakamo     	 |  500|     5|           8|");
+			printf("\bFalchion            	 |  240|     4|           9|");
+			printf("\nBastao de Beisebol  	 |  100|     4|           10|");
+			printf("\nFoice Maligna       	 |  600|     6|           11|");
+			printf("\nCajado Mistico     	 |  900|     3|           12|");
+			printf("\nFaca de Ferro     	 |  100|     2|           13|");
+			printf("\nPistola Tranquilizadora|  800|     4|           14|");
+			printf("\nMetralhadora           | 3000|     9|           15|");
+			printf("\n\nPoções:               |Preço|Regen|Nro da Opcao|")
+			printf("\nPocao Pequena de Vida |   50|   20|          16|");
+			printf("\nPocao Media de Vida   |  100|   40|          17|");
+			printf("\nPocao Grande de Vida  |  150|   60|          18|");
+			printf("\nPocao de Yggdrasil    |  200|  100|          19|");
+			printf("\nPocao Pequena De Mana |  100|   30|          20|");
+			printf("\nPocao Media De Mana   |  200|   60|          21|");
+			printf("\nPocao Grande De Mana  |  300|  100|          22|");
+			printf("\nSair da loja - Opcao 23");
+			scanf("%d", &Option);
+			while(Option<0||Option>23)
+			{
+				printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
+				scanf("%d", &Option);
+			}
+			if(Option==0)
+			system("CLEAR");
+		}
+	}
+}
+
 for(int i=0; i<8; i++) rngdeque.push_back(i); //Colocar ints em uma deque para evitar repeticao.
 while(rngdeque.size()>1){
 int i = rand()%rngdeque.size(); //Puxar ints aleatoriamente para sortear os personagens.

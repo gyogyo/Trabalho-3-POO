@@ -21,11 +21,15 @@ class Character {
 	int basespeed; //Membro adicionado, é o valor da velocidade do personagem sem modificadores de armadura.
 	int speed; //Velocidade funcional.
 	int dexterity;
-	int constitution;      
+	int constitution;
+	int atkspeed; // nro de hits por turno do personagem
+	int accuracy; // accuracy
+	float willpower;
 
 //Metodos
 	public:
 	Character(string);
+	Character(string,int,int,int,int);
 	//Getters
 	string getName();
 	int getHP();
@@ -41,6 +45,8 @@ class Character {
 	void setConstitution(int);
 	void addHP(int);
 	void addMP(int);
+	void physiqueUp();
+	void physiqueDown();
 
 	//Funcao Debug
 	void PrintInfo();
@@ -57,6 +63,8 @@ class Character {
 	friend class Knight;
 	friend class Wizard;
 	friend class Thief;
+	friend class Duelist;
+	friend class Paladin;
 	virtual int getAttackPoints();
 
 };
