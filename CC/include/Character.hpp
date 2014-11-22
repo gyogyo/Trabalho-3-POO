@@ -6,8 +6,8 @@
 #include <Inventory.hpp>
 using namespace std;
 
-class Character {    
-  
+class Character {
+
 //Atributos
 	private:
 	string alias;
@@ -16,7 +16,6 @@ class Character {
 	int MP;
 
 	protected:
-	int XP;
 	int strenght;
 	int basespeed; //Membro adicionado, é o valor da velocidade do personagem sem modificadores de armadura.
 	int speed; //Velocidade funcional.
@@ -24,18 +23,20 @@ class Character {
 	int constitution;
 	int atkspeed; // nro de hits por turno do personagem
 	int accuracy; // accuracy
-	float willpower;
+	int willpower;
 
 //Metodos
 	public:
 	Character(string);
-	Character(string,int,int,int,int);
+
+	void randomGenerate();
 	//Getters
 	string getName();
 	int getHP();
 	int getMP();
+	int getSpeed();
 
-	virtual void attack(Character*) = 0;
+	void attack(Character*);
 
 	//Setters
 	void addXP(int);
@@ -43,6 +44,7 @@ class Character {
 	void setSpeed(int);
 	void setDexterity(int);
 	void setConstitution(int);
+	void setAttackSpeed(int);
 	void addHP(int);
 	void addMP(int);
 	void physiqueUp();

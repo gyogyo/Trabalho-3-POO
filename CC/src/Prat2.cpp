@@ -21,9 +21,9 @@ Players[2] = new Wizard("Merlin",4,40,15,35,10);
 Players[3] = new Wizard("Medea",5,60,15,15,10);
 Players[4] = new Thief("Lupin",3,20,30,45,5);
 Players[5] = new Thief("X",4,30,20,35,15);
-Players[6] = new Duelist("X",5,60,30,5,5);
+Players[6] = new Duelist("Zalbag",5,60,30,5,5);
 Players[7] = new Duelist("Akatsuki",6,40,20,35,5);
-Players[8] = new Paladin("Dyceldarg",7,20,5,5,70);
+Players[8] = new Paladin("Dycedarg",7,20,5,5,70);
 Players[9] = new Paladin("Larkberg",4,25,5,15,55);
 
 Team* Teams[2];
@@ -60,7 +60,7 @@ Items[21] = new ManaPotion("Pocao Media De Mana", 200, 60);
 Items[22] = new ManaPotion("Pocao Grande De Mana", 300, 100);
 bool loop = true;
 //Montar rodada e times.
-for(int i=0; i<23; i++) rngdeque.push_back(i); 
+for(int i=0; i<23; i++) rngdeque.push_back(i);
 while(loop)
 {
 	int Option, teamChosen;
@@ -168,7 +168,7 @@ while(loop)
 				else if(Option<20)
 				{
 					Item* Bought = new HealthPotion(*Items[Option]);
-					Players[i]->getItem(Bought);	
+					Players[i]->getItem(Bought);
 					Players[i].spendGold(Bought->getPrice());
 				}
 				else
