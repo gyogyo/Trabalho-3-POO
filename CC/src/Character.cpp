@@ -110,6 +110,10 @@ void Character::PrintInfo(){ //Debug Print
 	cout << "Atk/Def: " << getAttackPoints() <<S<< getDefensePoints() << endl << endl;
 }
 
+void Character::PrintItemsInfo(){ //Debug Print
+	myitems.PrintInfo();
+}
+
 void Character::getItem(Item* New){
 	myitems.insertItem(New);  //Colocar um item no inventario.
 }
@@ -128,6 +132,12 @@ void Character::equipArmor(Armor* Select){
 void Character::useItem(Item* Use){
 	if(myitems.searchItem(Use->getName())==NULL) return; //Se esse item estiver no inventorio
 	Use->use();
+}
+
+void Character::useItem(int Select){
+	Item* Selected = myitems.searchItem(Select).getName();
+	if(Selected.getName()==NULL) return; //Se esse item estiver no inventorio
+	Selected->use();
 }
 
 //Em ambas as contas, os numeros fracionados foram simplificados como fator comum de 10.

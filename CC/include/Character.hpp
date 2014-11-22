@@ -52,12 +52,14 @@ class Character {
 
 	//Funcao Debug
 	void PrintInfo();
+	void PrintItemsInfo();
 
 	//Manipulacao de items e inventario
 	void getItem(Item*);
 	void equipWeapon(Item*);
 	void equipArmor(Item*);
 	void useItem(Item*);
+	void useItem(int);
 
 	//Calculo de batalha
 	protected:

@@ -53,14 +53,87 @@ while((rngTeam1.size()>0)&&(rngTeam2.size()>0)){
 	j = rngTeam2[i];
 	rngTeam2.erase(rngTeam2.begin()+i); //Apagar int ja selecionado.
 	TurnOrder.push_back(j); //Empilhar turno.
-	}
+}
 while(TurnOrder.size()>1){
+	int Option;
 	int i = TurnOrder.front();
 	TurnOrder.pop_front();
 	int j = TurnOrder.front();
 	TurnOrder.pop_front();
-	characters[i]->attack(EnemyTeam.characters[j]); //Um turno de batalha
-	EnemyTeam.characters[j]->attack(characters[i]);
+	printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
+	scanf("%d", &Option);
+	while(Option<1||Option>5)
+	{
+		printf("\nOpção Inválida. Escolha novamente\nOp: ");
+		scanf("%d", &Option);
+	}
+	while(Option==1)
+	{
+		system("CLEAR");
+		characters[i].attack(EnemyTeam.characters[j]);
+		printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
+		scanf("%d", &Option);
+		while(Option<1||Option>5)
+		{
+			printf("\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
+		}
+	}
+	while(Option==2)
+	{
+		system("CLEAR");
+		characters[i].attack(EnemyTeam.characters[j]); // mudar
+		printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
+		scanf("%d", &Option);
+		while(Option<1||Option>5)
+		{
+			printf("\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
+		}
+	}
+	while(Option==3)
+	{
+		system("CLEAR");
+		characters[i].attack(EnemyTeam.characters[j]); // mudar
+		printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
+		scanf("%d", &Option);
+		while(Option<1||Option>5)
+		{
+			printf("\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
+		}
+	}
+	while(Option==4)
+	{
+		system("CLEAR");
+		characters[i].physiqueUp();
+		printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
+		scanf("%d", &Option);
+		while(Option<1||Option>5)
+		{
+			printf("\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
+		}
+	}
+	while(Option==5)
+	{
+		int ItemOption;
+		system("CLEAR");
+		printf("Escolha um item usável");
+		printf("-1 - Cancel")
+		characters[i].printItemsInfo();
+		scanf("%d", &ItemOption);
+		if(ItemOption!=-1)
+		{
+			characters[i].use(ItemOption);
+		}
+		printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
+		scanf("%d", &Option);
+		while(Option<1||Option>5)
+		{
+			printf("\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
+		}
 	}
 }
 

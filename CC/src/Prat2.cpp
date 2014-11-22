@@ -11,7 +11,7 @@ using namespace std;
 
 int main(){
 
-deque<int> rngdeque; //Deque para uso na ordenaçao aleatoria de times.
+deque<int> rngdeque;
 
 //Alguns personagens de RPG.
 Character* Players[10];
@@ -60,10 +60,10 @@ Items[21] = new ManaPotion("Pocao Media De Mana", 200, 60);
 Items[22] = new ManaPotion("Pocao Grande De Mana", 300, 100);
 bool loop = true;
 //Montar rodada e times.
-for(int i=0; i<23; i++) rngdeque.push_back(i);
+for(int i=0; i<10; i++) rngdeque.push_back(i);
 while(loop)
 {
-	int Option, teamChosen;
+	int Option, teamChosen, teamEnemy;
 	printf("Luka to Jojo no RPG:");
 	printf("Escolha seu time:\nRed - 0\nBlue - 1");
 	while(Option<0||Option>1)
@@ -74,108 +74,119 @@ while(loop)
 	if(Option==0)
 	{
 		printf("\nTime %d escolhido", teamChosen);
-		teamChosen=0
+		teamChosen=0;
+		teamEnemy=1;
 	}
 	else
 	{
 		printf("\nTime %d escolhido", teamChosen);
 		teamChosen=1;
+		teamEnemy=0;
 	}
 	system("CLEAR");
 	printf("Luka to Jojo no RPG:\nMonte seu time escolhendo três personagens abaixo: ");
 	for(int i = 0 ; i < 10 ; i++)
 	{
 		Printf("\nOpção %d: --------------", i);
-		Players[0].PrintInfo();
+		Players[i].PrintInfo();
 		printf("\n");
 	}
 	for(int i = 0; i < 3 ; i++)
 	{
-		printf("\nEscolha %d personagens!", (3-i));
+		printf("\nEscolha %d personagens! (Nao podem ser repetidos)", (3-i));
 		scanf("%d", &Option);
-		while(Option<0||Option>9)
+		while(Option<0||Option>9||rngdeque[Option]!=Option)
 		{
 			printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
 			scanf("%d", &Option);
 		}
-		printf("\n%s escolhido!", Players[i].getName());
-		Teams[teamChosen]->addChar(Players[i]);
+		rngdeque[Option]=-1;
+		printf("\n%s escolhido!", Players[Option].getName());
+		Teams[teamChosen]->addChar(Players[Option]);
+	}
+	int k=3;
+	while(k>0)
+	{
+		int enemyChar = rnd%10;
+		if(rngdeque[enemyChar]==enemyChar)
+		{
+			rngdeque[Option]=-1;
+			Teams[teamEnemy]->addChar(Players[enemyChar]);
+			k--;
+		}
 	}
 	system("CLEAR");
 	bool loja=true;
 	for(int i =0 ; i < 3 ; i++)
 	{
+		printf("Luka to Jojo no RPG:\n\nEscolha uma Armadura");
+		printf("\n\nArmaduras:           |Defesa|Peso|Nro da Opcao|")
+		printf("\nEscudo de Ferro     	 |     5|  40|           0|");
+		printf("\nArmadura de Ferro   	 |     7|  90|           1|");
+		printf("\nCapacete de Ferro   	 |     3|  20|           2|");
+		printf("\nBotas de Couro      	 |     4|  25|           3|");
+		printf("\nBracelete Abencoado 	 |     2|   5|           4|");
+		printf("\nGrevas de Ferro    	 |     6|  60|           5|");
+		scanf("%d", &Option);
+		while(Option<0||Option>5)
+		{
+			printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
+		}
+		Item* Chosen = new Armor(*Items[Option]); // construtor de copia
+		Players[i]->getItem(Chosen);
+		Players[i]->equipArmor(Chosen);
+		system("CLEAR");
+		printf("Luka to Jojo no RPG:\n\nEscolha uma Arma");
+		printf("\n\nArmas:            	 	|Ataque|Nro da Opcao|")
+		printf("\nEspada Lendaria     	 	|     7|           1|");
+		printf("\nOsafune             	 	|     7|           2|");
+		printf("\nAme No Murakamo     	 	|     7|           3|");
+		printf("\bFalchion            	 	|     7|           4|");
+		printf("\nBastao de Beisebol  	 	|     7|           5|");
+		printf("\nFoice Maligna       	 	|     7|           6|");
+		printf("\nCajado Mistico     	 	|     7|           7|");
+		printf("\nFaca de Ferro     	 	|     7|           8|");
+		printf("\nPistola Tranquilizadora	|     7|           9|");
+		printf("\nMetralhadora           	|     7|           10|");
+		scanf("%d", &Option);
+		while(Option<0||Option>10)
+		{
+			printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
+		}
+		Chosen = new Weapon(*Items[Option+5]); // construtor de copia
+		Players[i]->getItem(Chosen);
+		Players[i]->equipWeapon(Chosen);
 		while(loja)
 		{
 			printf("Luka to Jojo no RPG:\nMarketplace for %s :\nGold Disponivel: %lf\nO que deseja comprar?", Players[i].getName(), Players[i].getTotalGold());
-			printf("\n\nArmaduras:           |Preço|Defesa|Peso|Nro da Opcao|")
-			printf("\nEscudo de Ferro     	 |  100|     3|  30|           0|");
-			printf("\nArmadura de Ferro   	 |  100|     3|  45|           1|");
-			printf("\nCapacete de Ferro   	 |  100|     3|  20|           2|");
-			printf("\nBotas de Couro      	 |  100|     3|  15|           3|");
-			printf("\nBracelete Abencoado 	 |  500|     2|  15|           4|");
-			printf("\nAmuleto Da Sorte    	 |   10|     1|   5|           5|");
-			printf("\n\nArmas:            	 |Preço|Ataque|Nro da Opcao|")
-			printf("\nEspada Lendaria     	 |  600|     7|           6|");
-			printf("\nOsafune             	 |  300|     3|           7|");
-			printf("\nAme No Murakamo     	 |  500|     5|           8|");
-			printf("\bFalchion            	 |  240|     4|           9|");
-			printf("\nBastao de Beisebol  	 |  100|     4|           10|");
-			printf("\nFoice Maligna       	 |  600|     6|           11|");
-			printf("\nCajado Mistico     	 |  900|     3|           12|");
-			printf("\nFaca de Ferro     	 |  100|     2|           13|");
-			printf("\nPistola Tranquilizadora|  800|     4|           14|");
-			printf("\nMetralhadora           | 3000|     9|           15|");
 			printf("\n\nPoções:              |Preço|Regen|Nro da Opcao|")
-			printf("\nPocao Pequena de Vida  |   50|   20|          16|");
-			printf("\nPocao Media de Vida    |  100|   40|          17|");
-			printf("\nPocao Grande de Vida   |  150|   60|          18|");
-			printf("\nPocao de Yggdrasil     |  200|  100|          19|");
-			printf("\nPocao Pequena De Mana  |  100|   30|          20|");
-			printf("\nPocao Media De Mana    |  200|   60|          21|");
-			printf("\nPocao Grande De Mana   |  300|  100|          22|");
-			printf("\nSair da loja - Opcao 23");
+			printf("\nPocao Pequena de Vida  |   50|   20|           1|");
+			printf("\nPocao Media de Vida    |  100|   40|           2|");
+			printf("\nPocao Grande de Vida   |  150|   60|           3|");
+			printf("\nPocao de Yggdrasil     |  200|  100|           4|");
+			printf("\nPocao Pequena De Mana  |  100|   30|           5|");
+			printf("\nPocao Media De Mana    |  200|   60|           6|");
+			printf("\nPocao Grande De Mana   |  300|  100|           7|");
+			printf("\nSair da loja - Opcao 0");
 			scanf("%d", &Option);
-			while(Option<0||Option>23)
+			while(Option<0||Option>7)
 			{
 				printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
 				scanf("%d", &Option);
 			}
-			if(Option<23)
+			if(Option>0)
 			{
-				if(Option<6)
+				if(Option<5)
 				{
-					if(rngdeque[Option]==Option)
-					{
-						Item* Bought = new Armor(*Items[Option]); // construtor de copia
-						rngdeque.erase(rngdeque.begin()+Option);
-						Players[i]->getItem(Bought);
-						Players[i]->equipArmor(Bought);
-						Players[i].spendGold(Bought->getPrice());
-					}
-				}
-				else if(Option<16)
-				{
-					if(rngdeque[Option]==Option) // nao permite equipar mais de uma armadura nem a mesma
-					{
-						Item* Bought = new Weapon(*Items[Option]);
-						rngdeque.erase(rngdeque.begin()+Option);
-						Players[i]->getItem(Bought);
-						Players[i]->equipWeapon(Bought);
-						Players[i].spendGold(Bought->getPrice());
-					}
-				}
-				else if(Option<20)
-				{
-					Item* Bought = new HealthPotion(*Items[Option]);
-					Players[i]->getItem(Bought);
-					Players[i].spendGold(Bought->getPrice());
+					Chosen = new HealthPotion(*Items[Option+15]); // construtor de copia
+					Players[i]->getItem(Chosen);
 				}
 				else
 				{
-					Item* Bought = new ManaPotion(*Items[Option]);
-					Players[i]->getItem(Bought);
-					Players[i].spendGold(Bought->getPrice());
+					Chosen = new ManaPotion(*Items[Option+15]); // construtor de copia
+					Players[i]->getItem(Chosen);
 				}
 			}
 			else
@@ -185,30 +196,11 @@ while(loop)
 			system("CLEAR");
 		}
 	}
-	printf("Luka to Jojo no RPG: BATTLE START");
+	printf("Luka to Jojo no RPG: BATTLE STARTING");
 	this_thread::sleep_for(std::chrono::milliseconds(3000));
-	/*Inserir sistema de luta aqui*/
+	system("CLEAR");
+	Teams[teamChosen]->fight(*Teams[teamEnemy]);
 }
-
-for(int i=0; i<8; i++) rngdeque.push_back(i); //Colocar ints em uma deque para evitar repeticao.
-while(rngdeque.size()>1){
-int i = rand()%rngdeque.size(); //Puxar ints aleatoriamente para sortear os personagens.
-int j = rngdeque[i];
-rngdeque.erase(rngdeque.begin()+i); //Apagar int ja selecionado.
-i = rand()%rngdeque.size(); //Puxar personagem oponente.
-int k = rngdeque[i];
-rngdeque.erase(rngdeque.begin()+i); //Apagar selecionado.
-Teams[0]->addChar(Players[j]); //Sortear em times.
-Teams[1]->addChar(Players[k]);
-}
-
-Teams[0]->fight(*Teams[1]); //Rodar batalha entre times.
-Teams[0]->resolveBattle(*Teams[1]); //Atualizar pontuacao dos times.
-Teams[1]->resolveBattle(*Teams[0]);
-
-//for (int i=0;i<2;i++) Teams[i]->PrintInfo(); //Debug Print
-for (int i=16;i<24;i++) {Players[0]->getItem(Items[i]); Players[0]->useItem(Items[i]);} //Potion Test
-//Players[0]->PrintInfo(); //Debug Print
 
 //Liberar Memoria
 for (int i=0;i<8;i++) delete Players[i];
