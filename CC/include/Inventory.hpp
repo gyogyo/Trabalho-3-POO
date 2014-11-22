@@ -1,0 +1,62 @@
+#ifndef INVENTORY_H_
+#define INVENTORY_H_
+
+#include <string>
+#include <utility>
+#include <vector>
+#include <Item.hpp>
+
+using namespace std;
+
+class Inventory {   
+//Atributos
+	private:
+	int spaces;
+	double gold;
+	vector<pair<Item*, bool>> items; //Pair para fazer um vector de 'dois' elementos.
+	int armorequip; //Variaveis para os dados de equipamento
+	int weaponequip[2]; //Quais armas estao equipadas
+
+//Metodos
+	public:
+	Inventory();
+	~Inventory();
+
+	//Getters
+	double getTotalGold();
+	int getAvailableSpace();
+
+	//Setters
+	void spendGold(double);
+	void earnGold(double);
+
+
+	//Enquanto o atributo spaces indica o espaco disponivel, setSpaces(int) altera o espaco absoluto.
+	//Se for colocado um número menor que o tamanho atual, os items extras serao forcadamente removidos.
+	void setSpaces(int);
+
+	//Operacoes com items
+	//Retorna UM item com o devido nome.
+	Item* searchItem(string);
+	//Retorno de posicao absoluta.
+	Item* searchItem(int);
+	//Insercao ao final do inventario.
+	void insertItem(Item*);
+	//Remove TODOS os items de mesmo nome.
+	void removeItem(string);
+	//Remove o item com a posicao absoluta.
+	void removeItem(int);
+
+	//Retorna soma total de ataque.
+	int itemAtkPts();
+	//Retorna soma total de defesa.
+	int itemDefPts();
+
+	void PrintInfo(); //Debug Print
+	void equipWeapon(string); //Funcao para equipar arma e armadura no personagem.
+	void equipArmor(string);
+
+};
+
+
+#endif
