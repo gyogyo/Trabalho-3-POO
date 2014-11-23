@@ -6,21 +6,8 @@
 #include <Equipment.hpp>
 #include <Potions.hpp>
 #include <deque>
-#include <unistd.h>
-#include <term.h>
 
 using namespace std;
-
-void ClearScreen()
-{
-    if (!cur_term)
-    {
-        int result;
-        setupterm( NULL, STDOUT_FILENO, &result );
-        if (result <= 0) return;
-    }
-    putp( tigetstr( "clear" ) );
-}
 
 int main(){
 
@@ -77,44 +64,44 @@ for(int i=0; i<10; i++) rngdeque.push_back(i);
 while(loop)
 {
 	int Option, teamChosen, teamEnemy;
-	cout << "Luka to Jojo no RPG:";
-	cout << "Escolha seu time:\nRed - 0\nBlue - 1";
+	printf("Luka to Jojo no RPG:");
+	printf("Escolha seu time:\nRed - 0\nBlue - 1");
 	while(Option<0||Option>1)
 	{
-		cout << "Opção Inválida. Escolha novamente";
-		cin >> Option
+		printf("Opção Inválida. Escolha novamente");
+		scanf("%d", &Option);
 	}
 	if(Option==0)
 	{
-		cout << "\nTime "<< teamChosen << " escolhido";
+		printf("\nTime %d escolhido", teamChosen);
 		teamChosen=0;
 		teamEnemy=1;
 	}
 	else
 	{
-		cout << "\nTime "<< teamChosen << " escolhido";
+		printf("\nTime %d escolhido", teamChosen);
 		teamChosen=1;
 		teamEnemy=0;
 	}
-	system("CLS");
-	cout << "Luka to Jojo no RPG:\nMonte seu time escolhendo três personagens abaixo: ";
+	system("CLEAR");
+	printf("Luka to Jojo no RPG:\nMonte seu time escolhendo três personagens abaixo: ");
 	for(int i = 0 ; i < 10 ; i++)
 	{
-		cout << "\nOpção " << i << " --------------";
+		Printf("\nOpção %d: --------------", i);
 		Players[i].PrintInfo();
-		cout << "\n");
+		printf("\n");
 	}
 	for(int i = 0; i < 3 ; i++)
 	{
-		cout << "\nEscolha " << (3-i) << " personagens! (Nao podem ser repetidos)";
-		cin >> Option;
+		printf("\nEscolha %d personagens! (Nao podem ser repetidos)", (3-i));
+		scanf("%d", &Option);
 		while(Option<0||Option>9||rngdeque[Option]!=Option)
 		{
-			cout << "\n\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option
+			printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
 		}
 		rngdeque[Option]=-1;
-		cout << endl << Players[Option].getName() << " escolhido!";
+		printf("\n%s escolhido!", Players[Option].getName());
 		Teams[teamChosen]->addChar(Players[Option]);
 	}
 	int k=3;
@@ -128,67 +115,66 @@ while(loop)
 			k--;
 		}
 	}
-	system("CLS");
+	system("CLEAR");
 	bool loja=true;
 	for(int i =0 ; i < 3 ; i++)
 	{
-		cout << "Luka to Jojo no RPG:\n\nEscolha uma Armadura";
-		cout << "\n\nArmaduras:           |Defesa|Peso|Nro da Opcao|";
-		cout << "\nEscudo de Ferro     	 |     5|  40|           0|";
-		cout << "\nArmadura de Ferro   	 |     7|  90|           1|";
-		cout << "\nCapacete de Ferro   	 |     3|  20|           2|";
-		cout << "\nBotas de Couro      	 |     4|  25|           3|";
-		cout << "\nBracelete Abencoado 	 |     2|   5|           4|";
-		cout << "\nGrevas de Ferro    	 |     6|  60|           5|";
-		cin >> Option
+		printf("Luka to Jojo no RPG:\n\nEscolha uma Armadura");
+		printf("\n\nArmaduras:           |Defesa|Peso|Nro da Opcao|")
+		printf("\nEscudo de Ferro     	 |     5|  40|           0|");
+		printf("\nArmadura de Ferro   	 |     7|  90|           1|");
+		printf("\nCapacete de Ferro   	 |     3|  20|           2|");
+		printf("\nBotas de Couro      	 |     4|  25|           3|");
+		printf("\nBracelete Abencoado 	 |     2|   5|           4|");
+		printf("\nGrevas de Ferro    	 |     6|  60|           5|");
+		scanf("%d", &Option);
 		while(Option<0||Option>5)
 		{
-			cout << "\n\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option
+			printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
 		}
 		Item* Chosen = new Armor(*Items[Option]); // construtor de copia
 		Players[i]->getItem(Chosen);
 		Players[i]->equipArmor(Chosen);
-		system("CLS");
-		cout << "Luka to Jojo no RPG:\n\nEscolha uma Arma";
-		cout << "\n\nArmas:            	 	|Ataque|Nro da Opcao|";
-		cout << "\nEspada Lendaria     	 	|     7|           1|";
-		cout << "\nOsafune             	 	|     7|           2|";
-		cout << "\nAme No Murakamo     	 	|     7|           3|";
-		cout << "\bFalchion            	 	|     7|           4|";
-		cout << "\nBastao de Beisebol  	 	|     7|           5|";
-		cout << "\nFoice Maligna       	 	|     7|           6|";
-		cout << "\nCajado Mistico     	 	|     7|           7|";
-		cout << "\nFaca de Ferro     	 	|     7|           8|";
-		cout << "\nPistola Tranquilizadora	|     7|           9|";
-		cout << "\nMetralhadora           	|     7|           10|";
-		cin >> Option
+		system("CLEAR");
+		printf("Luka to Jojo no RPG:\n\nEscolha uma Arma");
+		printf("\n\nArmas:            	 	|Ataque|Nro da Opcao|")
+		printf("\nEspada Lendaria     	 	|     7|           1|");
+		printf("\nOsafune             	 	|     7|           2|");
+		printf("\nAme No Murakamo     	 	|     7|           3|");
+		printf("\bFalchion            	 	|     7|           4|");
+		printf("\nBastao de Beisebol  	 	|     7|           5|");
+		printf("\nFoice Maligna       	 	|     7|           6|");
+		printf("\nCajado Mistico     	 	|     7|           7|");
+		printf("\nFaca de Ferro     	 	|     7|           8|");
+		printf("\nPistola Tranquilizadora	|     7|           9|");
+		printf("\nMetralhadora           	|     7|           10|");
+		scanf("%d", &Option);
 		while(Option<0||Option>10)
 		{
-			cout << "\n\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option
+			printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
+			scanf("%d", &Option);
 		}
 		Chosen = new Weapon(*Items[Option+5]); // construtor de copia
 		Players[i]->getItem(Chosen);
 		Players[i]->equipWeapon(Chosen);
-		system("CLS");
 		while(loja)
 		{
-			cout << "Luka to Jojo no RPG:\nMarketplace for " << Players[i].getName() << " :\nGold Disponivel: " << Players[i].getTotalGold() << " \nO que deseja comprar?";
-			cout << "\n\nPoções:              |Preço|Regen|Nro da Opcao|";
-			cout << "\nPocao Pequena de Vida  |   50|   20|           1|";
-			cout << "\nPocao Media de Vida    |  100|   40|           2|";
-			cout << "\nPocao Grande de Vida   |  150|   60|           3|";
-			cout << "\nPocao de Yggdrasil     |  200|  100|           4|";
-			cout << "\nPocao Pequena De Mana  |  100|   30|           5|";
-			cout << "\nPocao Media De Mana    |  200|   60|           6|";
-			cout << "\nPocao Grande De Mana   |  300|  100|           7|";
-			cout << "\nSair da loja - Opcao 0";
-			cin >> Option
+			printf("Luka to Jojo no RPG:\nMarketplace for %s :\nGold Disponivel: %lf\nO que deseja comprar?", Players[i].getName(), Players[i].getTotalGold());
+			printf("\n\nPoções:              |Preço|Regen|Nro da Opcao|")
+			printf("\nPocao Pequena de Vida  |   50|   20|           1|");
+			printf("\nPocao Media de Vida    |  100|   40|           2|");
+			printf("\nPocao Grande de Vida   |  150|   60|           3|");
+			printf("\nPocao de Yggdrasil     |  200|  100|           4|");
+			printf("\nPocao Pequena De Mana  |  100|   30|           5|");
+			printf("\nPocao Media De Mana    |  200|   60|           6|");
+			printf("\nPocao Grande De Mana   |  300|  100|           7|");
+			printf("\nSair da loja - Opcao 0");
+			scanf("%d", &Option);
 			while(Option<0||Option>7)
 			{
-				cout << "\n\nOpção Inválida. Escolha novamente\nOp: ";
-				cin >> Option
+				printf("\n\nOpção Inválida. Escolha novamente\nOp: ");
+				scanf("%d", &Option);
 			}
 			if(Option>0)
 			{
@@ -207,14 +193,13 @@ while(loop)
 			{
 				loja=false;
 			}
-			system("CLS");
+			system("CLEAR");
 		}
 	}
-	cout << "Luka to Jojo no RPG: BATTLE STARTING";
+	printf("Luka to Jojo no RPG: BATTLE STARTING");
 	this_thread::sleep_for(std::chrono::milliseconds(3000));
-	system("CLS");
-	//Teams[teamChosen]->fight(*Teams[teamEnemy]);
-	loop=false;
+	system("CLEAR");
+	Teams[teamChosen]->fight(*Teams[teamEnemy]);
 }
 
 //Liberar Memoria
