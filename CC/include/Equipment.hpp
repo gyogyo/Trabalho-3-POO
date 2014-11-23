@@ -25,6 +25,7 @@ class HealthPotion : public Item {
 //Metodos
 	public:
 	HealthPotion(string,double,int);
+	HealthPotion(HealthPotion&);
 	~HealthPotion();
 	virtual void use();
 };
@@ -33,6 +34,7 @@ class ManaPotion : public Item {
 //Metodos
 	public:
 	ManaPotion(string,double,int);
+	ManaPotion(ManaPotion&);
 	~ManaPotion();
 	virtual void use();
 };
