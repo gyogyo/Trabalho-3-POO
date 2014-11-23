@@ -21,7 +21,7 @@ class Armor : public Item {
 	void use();
 };
 
-class HealthPotion : public Item {
+class HealthPotion : public Item, public Usable {
 //Metodos
 	public:
 	HealthPotion(string,double,int);
@@ -29,7 +29,7 @@ class HealthPotion : public Item {
 	virtual void use();
 };
 
-class ManaPotion : public Item {
+class ManaPotion : public Item, public Usable {
 //Metodos
 	public:
 	ManaPotion(string,double,int);
