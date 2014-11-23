@@ -30,7 +30,7 @@ int Knight::getAttackPoints(){
 
 //
 
-Wizard::Wizard(string Name, int Wisdom) : Character(Name){
+Wizard::Wizard(string Name) : Character(Name){
 	wisdom = (rand()/double(RAND_MAX))*6;
 }
 
@@ -78,7 +78,7 @@ int Thief::getDefensePoints(){
 
 int Thief::getAttackPoints(){
 	int Base = Character::getAttackPoints();
-	return Base + ((willpower * stealth / 2); //Somar stealth no ataque. Mas essa soma faria mais sentido se fosse Assassin, não thief. :v
+	return (Base + ((willpower * stealth)/ 2)); //Somar stealth no ataque. Mas essa soma faria mais sentido se fosse Assassin, não thief. :v
 }
 
 //
@@ -110,11 +110,11 @@ int Duelist::getAttackPoints(){
 
 //
 
-Paladin::Paladin(string Name, int Holy) : Character(Name){
+Paladin::Paladin(string Name) : Character(Name){
 	holy = (rand()/double(RAND_MAX))*6;
 }
 
-Paladin::(string Name, int Holy, int Strength, int Speed, int Dexterity, int Constitution) : Character(Name,Strength,Speed,Dexterity,Constitution){
+Paladin::Paladin(string Name, int Holy, int Strength, int Speed, int Dexterity, int Constitution) : Character(Name,Strength,Speed,Dexterity,Constitution){
 	atkspeed=1;
 	accuracy=80;
 	holy = Holy;

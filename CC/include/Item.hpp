@@ -14,10 +14,11 @@ class Item {
 	int points; //Pontos a serem interpretados pelas classes filhas.
 	Character* owner;
 
-	void setPoints(int); //Setter de pontos interno da classe.
+	 //Setter de pontos interno da classe.
 
 //Metodos
 	public:
+	void setPoints(int);
 	Item(string, double, int);
 	Item(Item&);
 	void setOwner(Character*);

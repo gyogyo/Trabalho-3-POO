@@ -20,6 +20,10 @@ void Item::setPoints(int Value){
 	points = Value;
 }
 
+int Item::getPoints(){
+	return points;
+}
+
 void Item::setOwner(Character* Owner){
 	owner = Owner;
 }
@@ -32,10 +36,6 @@ string Item::getName(){
 
 double Item::getPrice(){
 	return price;
-}
-
-int Item::getType(){
-	return type;
 }
 
 Character* Item::getOwner(){

@@ -3,7 +3,9 @@
 #include <cmath>
 #include <Character.hpp>
 #include <Equipment.hpp>
-#include <Potions.hpp>
+#include <Item.hpp>
+
+using namespace std;
 
 Character::Character(string Name){
 	alias = Name;
@@ -14,14 +16,15 @@ Character::Character(string Name){
 }
 
 Character::Character(string Name,int Strength,int Speed,int Dexterity,int Constitution){
-	strenght = Strenght;
+	alias=Name;
+	strenght = Strength;
 	basespeed = speed = Speed;
 	dexterity  = Dexterity;
 	constitution = Constitution;
 }
 
 
-void randomGenerate(){
+void Character::randomGenerate(){
 
 	//Logica para os pontos: Ha 4 Rands() seguidos, que puxam de um total de 97 pontos cumulativos.
 	//O algoritmo foi feito para que sempre ao menos sobre 1 ponto, para evitar a divisao por 0.
@@ -105,7 +108,7 @@ void Character::PrintInfo(){ //Debug Print
 	string S = " "; //String Macro de espaco para escrever menos.
 	cout
 	<< "Alias: " << alias << endl
-	<< "HP/XP/Str/Spd/Dex/Con: " << HP <<S<< XP <<S<< strenght <<S<< speed <<S<< dexterity <<S<< constitution <<S<< endl;
+	<< "HP/Str/Spd/Dex/Con: " << HP <<S<< strenght <<S<< speed <<S<< dexterity <<S<< constitution <<S<< endl;
 	myitems.PrintInfo();
 	cout << "Atk/Def: " << getAttackPoints() <<S<< getDefensePoints() << endl << endl;
 }
@@ -114,16 +117,20 @@ void Character::PrintItemsInfo(){ //Debug Print
 	myitems.PrintInfo();
 }
 
+double Character::getTotalGold(){
+	return myitems.getTotalGold();  
+}
+
 void Character::getItem(Item* New){
 	myitems.insertItem(New);  //Colocar um item no inventario.
 }
 
-void Character::equipWeapon(Weapon* Select){
+void Character::equipWeapon(Item* Select){
 	//cout << Select2->getName() << " " << Select2->getRange() << endl; //Debug Print
 	myitems.equipWeapon(Select->getName());
 }
 
-void Character::equipArmor(Armor* Select){
+void Character::equipArmor(Item* Select){
 	//cout << Select2->getName() << " " << Select2->getWeight() << endl; //Debug Print
 	//setSpeed(basespeed*(sqrt(Select->getWeight())/10)); //Formula estranha de velocidade que aumenta velocidade com armadura mais pesada.
 	myitems.equipArmor(Select->getName());
@@ -135,8 +142,8 @@ void Character::useItem(Item* Use){
 }
 
 void Character::useItem(int Select){
-	Item* Selected = myitems.searchItem(Select).getName();
-	if(Selected.getName()==NULL) return; //Se esse item estiver no inventorio
+	Item* Selected = myitems.searchItem(Select);
+	if(Selected==NULL) return; //Se esse item estiver no inventorio
 	Selected->use();
 }
 

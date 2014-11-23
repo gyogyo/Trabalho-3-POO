@@ -60,81 +60,82 @@ while(TurnOrder.size()>1){
 	TurnOrder.pop_front();
 	int j = TurnOrder.front();
 	TurnOrder.pop_front();
-	printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
-	scanf("%d", &Option);
+	cout << "Luka to Jojo no RPG:" << endl << endl << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
+	cin >> Option;
 	while(Option<1||Option>5)
 	{
-		printf("\nOpção Inválida. Escolha novamente\nOp: ");
-		scanf("%d", &Option);
+		cout << "\nOpção Inválida. Escolha novamente\nOp: ";
+		cin >> Option;
 	}
 	while(Option==1)
 	{
-		system("CLEAR");
-		characters[i].attack(EnemyTeam.characters[j]);
-		printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
-		scanf("%d", &Option);
+		system("CLS");
+		characters[i]->attack(EnemyTeam.characters[j]);
+		cout << "Luka to Jojo no RPG:\n\n" << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
+		cin >> Option;
 		while(Option<1||Option>5)
 		{
-			printf("\nOpção Inválida. Escolha novamente\nOp: ");
-			scanf("%d", &Option);
+			cout << "\nOpção Inválida. Escolha novamente\nOp: ";
+			cin >> Option;
 		}
 	}
 	while(Option==2)
 	{
-		system("CLEAR");
-		characters[i].attack(EnemyTeam.characters[j]); // mudar
-		printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
-		scanf("%d", &Option);
+		system("CLS");
+		characters[i]->attack(EnemyTeam.characters[j]); // mudar
+		cout << "Luka to Jojo no RPG:\n\n" << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
+		cin >> Option;
 		while(Option<1||Option>5)
 		{
-			printf("\nOpção Inválida. Escolha novamente\nOp: ");
-			scanf("%d", &Option);
+			cout << "\nOpção Inválida. Escolha novamente\nOp: ";
+			cin >> Option;
 		}
 	}
 	while(Option==3)
 	{
-		system("CLEAR");
-		characters[i].attack(EnemyTeam.characters[j]); // mudar
-		printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
-		scanf("%d", &Option);
+		system("CLS");
+		characters[i]->attack(EnemyTeam.characters[j]); // mudar
+		cout << "Luka to Jojo no RPG:\n\n" << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
+		cin >> Option;
 		while(Option<1||Option>5)
 		{
-			printf("\nOpção Inválida. Escolha novamente\nOp: ");
-			scanf("%d", &Option);
+			cout << "\nOpção Inválida. Escolha novamente\nOp: ";
+			cin >> Option;
 		}
 	}
 	while(Option==4)
 	{
-		system("CLEAR");
-		characters[i].physiqueUp();
-		printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
-		scanf("%d", &Option);
+		system("CLS");
+		characters[i]->physiqueUp();
+		cout << "Luka to Jojo no RPG:\n\n" << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
+		cin >> Option;
 		while(Option<1||Option>5)
 		{
-			printf("\nOpção Inválida. Escolha novamente\nOp: ");
-			scanf("%d", &Option);
+			cout << "\nOpção Inválida. Escolha novamente\nOp: ";
+			cin >> Option;
 		}
 	}
 	while(Option==5)
 	{
 		int ItemOption;
-		system("CLEAR");
-		printf("Escolha um item usável");
-		printf("-1 - Cancel")
-		characters[i].printItemsInfo();
-		scanf("%d", &ItemOption);
+		system("CLS");
+		cout << "Escolha um item usável";
+		cout << "-1 - Cancel";
+		characters[i]->PrintItemsInfo();
+		cin >> ItemOption;
 		if(ItemOption!=-1)
 		{
-			characters[i].use(ItemOption);
+			characters[i]->useItem(ItemOption);
 		}
-		printf("Luka to Jojo no RPG:\n\n%s : HP: %d 		vs 		HP: %d : %s\n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ", characters[i].getName(), characters[i].getHP(), EnemyTeam.characters[j].getHP(), EnemyTeam.characters[j].getName());
-		scanf("%d", &Option);
+		cout << "Luka to Jojo no RPG:\n\n" << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
+		cin >> Option;
 		while(Option<1||Option>5)
 		{
-			printf("\nOpção Inválida. Escolha novamente\nOp: ");
-			scanf("%d", &Option);
+			cout << "\nOpção Inválida. Escolha novamente\nOp: ";
+			cin >> Option;
 		}
 	}
+}
 }
 
 int Team::resolveBattle(Team& EnemyTeam){

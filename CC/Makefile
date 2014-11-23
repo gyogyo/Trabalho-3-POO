@@ -1,14 +1,14 @@
 headerpath = include/
 objpath = obj/
 sourcepath = src/
-OBJ = Character.o Inventory.o Item.o Team.o Potions.o Equipment.o Classes.o
+OBJ = Character.o Inventory.o Item.o Team.o Equipment.o Classes.o
 FILE = Prat2
 LFLAGS = -lm
 
 all: $(OBJ)
 	g++ -std=c++11 -o $(FILE) $(sourcepath)$(FILE).cpp $(objpath)*.o -I $(headerpath) $(LFLAGS)
 
-Character.o: Inventory.o
+Character.o: Inventory.o Item.o
 	g++ -std=c++11 -c $(sourcepath)Character.cpp -I $(headerpath) -o $(objpath)Character.o $(LFLAGS)
 Inventory.o: Item.o
 	g++ -std=c++11 -c $(sourcepath)Inventory.cpp -I $(headerpath) -o $(objpath)Inventory.o $(LFLAGS)
@@ -16,8 +16,6 @@ Item.o:
 	g++ -std=c++11 -c $(sourcepath)Item.cpp -I $(headerpath) -o $(objpath)Item.o $(LFLAGS)
 Team.o: Character.o 
 	g++ -std=c++11 -c $(sourcepath)Team.cpp -I $(headerpath) -o $(objpath)Team.o $(LFLAGS)
-Potions.o: Item.o Character.o
-	g++ -std=c++11 -c $(sourcepath)Potions.cpp -I $(headerpath) -o $(objpath)Potions.o $(LFLAGS)
 Equipment.o: Item.o
 	g++ -std=c++11 -c $(sourcepath)Equipment.cpp -I $(headerpath) -o $(objpath)Equipment.o $(LFLAGS)
 Classes.o: Character.o

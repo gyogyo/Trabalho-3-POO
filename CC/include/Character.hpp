@@ -28,7 +28,7 @@ class Character {
 //Metodos
 	public:
 	Character(string);
-
+	Character(string,int,int,int,int);
 	void randomGenerate();
 	//Getters
 	string getName();
@@ -56,6 +56,7 @@ class Character {
 
 	//Manipulacao de items e inventario
 	void getItem(Item*);
+	double getTotalGold();
 	void equipWeapon(Item*);
 	void equipArmor(Item*);
 	void useItem(Item*);

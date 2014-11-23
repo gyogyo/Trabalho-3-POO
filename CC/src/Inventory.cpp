@@ -103,7 +103,7 @@ int Inventory::itemAtkPts(){
 	int Total=0;
 	for(int i=0; i<InvSize; i++)
 		if(get<1>(items[i]))
-			Total += get<0>(items[i])->getAttackPts();
+			Total += get<0>(items[i])->getPoints();
 	return Total;
 }
 
@@ -114,7 +114,7 @@ int Inventory::itemDefPts(){
 	int Total=0;
 	for(int i=0; i<InvSize; i++)
 		if(get<1>(items[i]))
-			Total += get<0>(items[i])->getDefensePts();
+			Total += get<0>(items[i])->getPoints();
 	return Total;
 }
 
@@ -124,7 +124,7 @@ cout << "Inventory: " << endl;
 int InvSize = items.size();
 for(int i=0; i<InvSize; i++)
 cout << "Item " << i << " : " << get<0>(items[i])->getName() << endl
-<< "Price/Atk/Def/Equip : " << get<0>(items[i])->getPrice() <<S<< get<0>(items[i])->getAttackPts() <<S<< get<0>(items[i])->getDefensePts() <<S<< get<1>(items[i]) << endl;
+<< "Price/Atk/Def/Equip : " << get<0>(items[i])->getPrice() <<S<< get<0>(items[i])->getPoints() <<S<< get<0>(items[i])->getPoints() <<S<< get<1>(items[i]) << endl;
 cout << "Ataque/Defesa dos items equipados: " << itemAtkPts() <<S<< itemDefPts() << endl;
 }
 

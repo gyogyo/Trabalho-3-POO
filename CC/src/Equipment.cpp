@@ -14,7 +14,7 @@ Weapon::Weapon(string Name, double Price, int Attack) : Item(Name, Price, 0){
 Weapon::Weapon(Weapon& Source) : Item(Source){}
 
 void Weapon::use(){
-	owner->equipWeapon(this);
+	getOwner()->equipWeapon(this);
 }
 
 //Armor class
@@ -28,7 +28,7 @@ Armor::Armor(string Name, double Price, int Defense) : Item(Name, Price, 0){
 Armor::Armor(Armor& Source) : Item(Source){}
 
 void Armor::use(){
-	owner->equipArmor(this);
+	getOwner()->equipArmor(this);
 }
 
 //Health Potion
@@ -41,7 +41,7 @@ HealthPotion::HealthPotion(string Name, double Price, int Restore) : Item(Name, 
 HealthPotion::HealthPotion(HealthPotion& Source) : Item(Source){}
 
 void HealthPotion::use(){
-	owner->addHP(points);
+	getOwner()->addHP(getPoints());
 }
 
 //Mana Potion
@@ -54,5 +54,5 @@ ManaPotion::ManaPotion(string Name, double Price, int Restore) : Item(Name, Pric
 ManaPotion::ManaPotion(ManaPotion& Source) : Item(Source){}
 
 void ManaPotion::use(){
-	owner->addMP(points);
+	getOwner()->addMP(getPoints());
 }

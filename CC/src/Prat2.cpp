@@ -33,23 +33,23 @@ Teams[1] = new Team("Blue",blue);
 
 Item* Items[23];
 
-Items[0] = new Armor("Escudo de Ferro", 100, 3, 30);
-Items[1] = new Armor("Armadura de Ferro", 100, 3, 45);
-Items[2] = new Armor("Capacete de Ferro", 100, 3, 20);
-Items[3] = new Armor("Botas de Couro", 100, 3, 15);
-Items[4] = new Armor("Bracelete Abencoado", 500, 2, 15);
-Items[5] = new Armor("Amuleto Da Sorte", 10, 1, 5);
+Items[0] = new Armor("Escudo de Ferro", 100, 3);
+Items[1] = new Armor("Armadura de Ferro", 100, 3);
+Items[2] = new Armor("Capacete de Ferro", 100, 3);
+Items[3] = new Armor("Botas de Couro", 100, 3);
+Items[4] = new Armor("Bracelete Abencoado", 500, 2);
+Items[5] = new Armor("Amuleto Da Sorte", 10, 1);
 
-Items[6] = new Weapon("Espada Lendaria", 600, 7, 7);
-Items[7] = new Weapon("Osafune", 300, 3, 5);
-Items[8] = new Weapon("Ame No Murakamo", 500, 5, 6);
-Items[9] = new Weapon("Falchion", 240, 4, 8);
-Items[10] = new Weapon("Bastao de Beisebol", 100, 4, 4);
-Items[11] = new Weapon("Foice Maligna", 600, 6, 10);
-Items[12] = new Weapon("Cajado Mistico", 900, 3, 10);
-Items[13] = new Weapon("Faca de Ferro", 100, 2, 3);
-Items[14] = new Weapon("Pistola Tranquilizadora", 800, 4, 10);
-Items[15] = new Weapon("Metralhadora", 3000, 9, 10);
+Items[6] = new Weapon("Espada Lendaria", 600, 7);
+Items[7] = new Weapon("Osafune", 300, 3);
+Items[8] = new Weapon("Ame No Murakamo", 500, 5);
+Items[9] = new Weapon("Falchion", 240, 4);
+Items[10] = new Weapon("Bastao de Beisebol", 100, 4);
+Items[11] = new Weapon("Foice Maligna", 600, 6);
+Items[12] = new Weapon("Cajado Mistico", 900, 3);
+Items[13] = new Weapon("Faca de Ferro", 100, 2);
+Items[14] = new Weapon("Pistola Tranquilizadora", 800, 4);
+Items[15] = new Weapon("Metralhadora", 3000, 9);
 
 Items[16] = new HealthPotion("Pocao Pequena de Vida", 50, 20);
 Items[17] = new HealthPotion("Pocao Media de Vida", 100, 40);
@@ -70,7 +70,7 @@ while(loop)
 	while(Option<0||Option>1)
 	{
 		cout << "Opção Inválida. Escolha novamente";
-		cin >> Option
+		cin >> Option;
 	}
 	if(Option==0)
 	{
@@ -89,8 +89,8 @@ while(loop)
 	for(int i = 0 ; i < 10 ; i++)
 	{
 		cout << "\nOpção " << i << " --------------";
-		Players[i].PrintInfo();
-		cout << "\n");
+		Players[i]->PrintInfo();
+		cout << "\n";
 	}
 	for(int i = 0; i < 3 ; i++)
 	{
@@ -99,7 +99,7 @@ while(loop)
 		while(Option<0||Option>9||rngdeque[Option]!=Option)
 		{
 			cout << "\n\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option
+			cin >> Option;
 		}
 		rngdeque[Option]=-1;
 		cout << endl << Players[Option]->getName() << " escolhido!";
@@ -108,7 +108,7 @@ while(loop)
 	int k=3;
 	while(k>0)
 	{
-		int enemyChar = rnd%10;
+		int enemyChar = rand()%10;
 		if(rngdeque[enemyChar]==enemyChar)
 		{
 			rngdeque[Option]=-1;
@@ -128,13 +128,13 @@ while(loop)
 		cout << "\nBotas de Couro      	 |     4|  25|           3|";
 		cout << "\nBracelete Abencoado 	 |     2|   5|           4|";
 		cout << "\nGrevas de Ferro    	 |     6|  60|           5|";
-		cin >> Option
+		cin >> Option;
 		while(Option<0||Option>5)
 		{
 			cout << "\n\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option
+			cin >> Option;
 		}
-		Item* Chosen = new Armor(*Items[Option]); // construtor de copia
+		Item* Chosen = new Armor(*(Armor*)Items[Option]); // construtor de copia
 		Players[i]->getItem(Chosen);
 		Players[i]->equipArmor(Chosen);
 		system("CLS");
@@ -150,13 +150,13 @@ while(loop)
 		cout << "\nFaca de Ferro     	 	|     7|           8|";
 		cout << "\nPistola Tranquilizadora	|     7|           9|";
 		cout << "\nMetralhadora           	|     7|           10|";
-		cin >> Option
+		cin >> Option;
 		while(Option<0||Option>10)
 		{
 			cout << "\n\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option
+			cin >> Option;
 		}
-		Chosen = new Weapon(*Items[Option+5]); // construtor de copia
+		Chosen = new Weapon(*(Weapon*)Items[Option+5]); // construtor de copia
 		Players[i]->getItem(Chosen);
 		Players[i]->equipWeapon(Chosen);
 		system("CLS");
@@ -172,22 +172,22 @@ while(loop)
 			cout << "\nPocao Media De Mana    |  200|   60|           6|";
 			cout << "\nPocao Grande De Mana   |  300|  100|           7|";
 			cout << "\nSair da loja - Opcao 0";
-			cin >> Option
+			cin >> Option;
 			while(Option<0||Option>7)
 			{
 				cout << "\n\nOpção Inválida. Escolha novamente\nOp: ";
-				cin >> Option
+				cin >> Option;
 			}
 			if(Option>0)
 			{
 				if(Option<5)
 				{
-					Chosen = new HealthPotion(*Items[Option+15]); // construtor de copia
+					Chosen = new HealthPotion(*(HealthPotion*)Items[Option+15]); // construtor de copia
 					Players[i]->getItem(Chosen);
 				}
 				else
 				{
-					Chosen = new ManaPotion(*Items[Option+15]); // construtor de copia
+					Chosen = new ManaPotion(*(ManaPotion*)Items[Option+15]); // construtor de copia
 					Players[i]->getItem(Chosen);
 				}
 			}
