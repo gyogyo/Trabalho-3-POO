@@ -2,7 +2,7 @@ headerpath = include/
 objpath = obj/
 sourcepath = src/
 OBJ = Character.o Inventory.o Item.o Team.o Equipment.o Classes.o
-FILE = Prat3
+FILE = Prat2
 LFLAGS = -lm
 
 all: $(OBJ)

@@ -38,7 +38,7 @@ if(N < characters.size()) return characters[N];
 throw;
 }
 
-int Team::getSize(){
+int Team::getSize(int N){
 return characters.size();
 }
 
