@@ -113,10 +113,10 @@ void Character::setStatus(int Which, bool Flag){ //Flag é um bool, Which é o b
 void Character::PrintInfo(){ //Debug Print
 	string S = " "; //String Macro de espaco para escrever menos.
 	cout
-	<< "Alias: " << alias << endl
-	<< "HP/Str/Spd/Dex/Con: " << HP <<S<< strenght <<S<< speed <<S<< dexterity <<S<< constitution <<S<< endl;
+	<< "\nAlias: " << alias << endl
+	<< "HP:" << HP << "\nStr:" << strenght << "\nSpd:" << speed << "\nDex:" << dexterity << "\nCon:" << constitution << S << endl;
 	myitems.PrintInfo();
-	cout << "Atk/Def: " << getAttackPoints() <<S<< getDefensePoints() << endl << endl;
+	cout << "Atk: " << getAttackPoints() <<"\nDef:"<< getDefensePoints() << endl << endl;
 }
 
 void Character::PrintItemsInfo(){ //Debug Print
@@ -125,6 +125,10 @@ void Character::PrintItemsInfo(){ //Debug Print
 
 double Character::getTotalGold(){
 	return myitems.getTotalGold();  
+}
+
+void Character::spendGold(double a){
+	return myitems.spendGold(a);  
 }
 
 void Character::getItem(Item* New){

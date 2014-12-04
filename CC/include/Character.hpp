@@ -59,6 +59,7 @@ class Character {
 	//Manipulacao de items e inventario
 	void getItem(Item*);
 	double getTotalGold();
+	void spendGold(double);
 	void equipWeapon(Item*);
 	void equipArmor(Item*);
 	void useItem(Item*);

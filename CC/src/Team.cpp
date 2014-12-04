@@ -3,7 +3,6 @@
 #include <deque>
 #include <iostream>
 #include <Team.hpp>
-#include <Colors.hpp>
 #include <Character.hpp>
 
 using namespace std;

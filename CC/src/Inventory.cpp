@@ -7,7 +7,7 @@ using namespace std;
 
 Inventory::Inventory(){
 	spaces = 10;
-	gold = 0.0;
+	gold = 500.0;
 	armorequip = -1; //Nada equipado
 	weaponequip[0] = -1;
 	weaponequip[1] = -1;
