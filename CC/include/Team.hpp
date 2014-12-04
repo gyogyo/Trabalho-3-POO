@@ -4,7 +4,7 @@
 #include <Character.hpp>
 #include <string>
 #include <vector>
-#include <Colors.hpp>
+#include <Enum.hpp>
 
 using namespace std;
 

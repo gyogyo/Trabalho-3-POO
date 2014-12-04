@@ -30,6 +30,7 @@ class Team {
 	void fight(Team&);
 	int resolveBattle(Team&);
 	void addChar(Character*);
+	void clear();
 	void removeChar(int);
 	void removeChar(Character*);
 	Character* searchChar(string);

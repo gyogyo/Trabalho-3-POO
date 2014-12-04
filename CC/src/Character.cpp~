@@ -23,11 +23,6 @@ Character::Character(string Name,int Strength,int Speed,int Dexterity,int Consti
 	constitution = Constitution;
 }
 
-Character::~Character(){
-	myitems.clear();
-}
-
-
 void Character::randomGenerate(){
 
 	//Logica para os pontos: Ha 4 Rands() seguidos, que puxam de um total de 97 pontos cumulativos.

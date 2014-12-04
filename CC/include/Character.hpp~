@@ -29,7 +29,6 @@ class Character {
 	public:
 	Character(string);
 	Character(string,int,int,int,int);
-	~Character();
 	void randomGenerate();
 	//Getters
 	string getName();

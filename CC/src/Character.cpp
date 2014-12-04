@@ -1,4 +1,4 @@
-﻿#include <string>
+#include <string>
 #include <iostream>
 #include <cmath>
 #include <Character.hpp>
@@ -103,6 +103,13 @@ void Character::physiqueDown(){
 	willpower=1;
 }
 
+void Character::setStatus(int Which, bool Flag){ //Flag é um bool, Which é o bit de qual status modificar
+	if(Flag && !(status & Which))
+		status += Which;
+	else if(!Flag && (status & Which))
+		status -= Which;
+}
+
 void Character::PrintInfo(){ //Debug Print
 	string S = " "; //String Macro de espaco para escrever menos.
 	cout
@@ -182,4 +189,6 @@ void Character::attack(Character* Enemy){
 		}
 
 	physiqueDown();
-	}
+}
+
+void Character::specialAttack(Character* Target){}

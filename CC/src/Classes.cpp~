@@ -1,4 +1,4 @@
-#include <string>
+﻿#include <string>
 #include <iostream>
 #include <Classes.hpp>
 #include <Character.hpp>
@@ -28,26 +28,6 @@ int Knight::getAttackPoints(){
 	return Base+(willpower*power);
 }
 
-void Knight::specialAttack(Character* Enemy){ //Sol
-	int RanNum, CritNum, Damage;
-
-	int EnemyDodge = Enemy->getSpeed();
-
-	for(int i = 0; i < atkspeed; i++){
-		RanNum = (rand()/double(RAND_MAX))*1000;
-		CritNum = (rand()/double(RAND_MAX))*100;
-		Damage = (int)((this->getAttackPoints()-Enemy->getDefensePoints()) + ((rand()%11) - 5) + power);
-		if(Damage < 1) {Damage = 1;}
-		if(CritNum < (dexterity)) {Damage *= 2;}
-		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
-		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
-		addHP(Damage/2); //Suga vida
-		}
-
-	physiqueDown();
-}
-
 //
 
 Wizard::Wizard(string Name) : Character(Name){
@@ -75,24 +55,6 @@ int Wizard::getAttackPoints(){
 	return Base + (willpower*(2*wisdom));
 }
 
-void Wizard::specialAttack(Character* Enemy){ //Thunder Jolt
-	int RanNum, CritNum, StatusNum, Damage;
-
-	int EnemyDodge = Enemy->getSpeed();
-
-	for(int i = 0; i < atkspeed; i++){
-		RanNum = (rand()/double(RAND_MAX))*1000;
-		CritNum = (rand()/double(RAND_MAX))*100;
-		StatusNum = (rand()/double(RAND_MAX))*100;
-		Damage = (int)(wisdom*3);
-		if(CritNum < 15) {Damage *= 2;}
-		if(StatusNum < 50) {Enemy->setStatus(Paralyze, true);}
-		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
-		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
-		}
-}
-
 //
 
 Thief::Thief(string Name) : Character(Name){
@@ -117,22 +79,6 @@ int Thief::getDefensePoints(){
 int Thief::getAttackPoints(){
 	int Base = Character::getAttackPoints();
 	return (Base + ((willpower * stealth)/ 2)); //Somar stealth no ataque. Mas essa soma faria mais sentido se fosse Assassin, não thief. :v
-}
-
-void Thief::specialAttack(Character* Enemy){ //Venom Strike
-	int RanNum, CritNum, Damage;
-
-	int EnemyDodge = Enemy->getSpeed();
-
-	for(int i = 0; i < atkspeed; i++){
-		RanNum = (rand()/double(RAND_MAX))*1000;
-		CritNum = (rand()/double(RAND_MAX))*100;
-		if(CritNum < 25) {Damage = 10;}
-		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
-		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
-		Enemy->setStatus(Poison,true);
-		}
 }
 
 //
@@ -162,23 +108,6 @@ int Duelist::getAttackPoints(){
 	return Base + (willpower*proficiency);
 }
 
-void Duelist::specialAttack(Character* Enemy){ //Astra
-	int RanNum, CritNum, Damage;
-
-	int EnemyDodge = Enemy->getSpeed();
-
-	for(int i = 0; i < 5; i++){
-		RanNum = (rand()/double(RAND_MAX))*1000;
-		CritNum = (rand()/double(RAND_MAX))*100;
-		Damage = (int)((this->getAttackPoints()-Enemy->getDefensePoints()) + ((rand()%11) - 5));
-		if(Damage < 1) {Damage = 1;}
-		if(CritNum < (dexterity)) {Damage *= 2;}
-		if(RanNum > (accuracy - EnemyDodge - 10)) {Damage = 0;}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
-		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
-		}
-}
-
 //
 
 Paladin::Paladin(string Name) : Character(Name){
@@ -204,22 +133,5 @@ int Paladin::getDefensePoints(){
 int Paladin::getAttackPoints(){
 	int Base = Character::getAttackPoints();
 	return Base + (willpower*holy);
-}
-
-void Paladin::specialAttack(Character* Enemy){ //Holy Retribution
-	int Damage;
-	for(int i = 0; i < atkspeed; i++){
-		Damage = holy*2;
-		if(status & 1) {
-			setStatus(Poison,0);
-			Damage *= 2;
-			}
-		if(status & 2) {
-			setStatus(Paralyze,0);
-			Damage *= 2;
-			}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
-		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
-		}
 }
 
