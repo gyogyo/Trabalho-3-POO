@@ -64,7 +64,7 @@ void Loja::potionShop(Character* user)
 	}
 	if(Option<4)
 	{
-		if(user->getTotalGold()>HPotions[Option]->getPrice())
+		if(user->getTotalGold()>=HPotions[Option]->getPrice())
 		{
 			Compra = new HealthPotion(*(HealthPotion*)HPotions[Option]); // construtor de copia
 			user->getItem(Compra);
@@ -77,7 +77,7 @@ void Loja::potionShop(Character* user)
 	}
 	else
 	{
-		if(user->getTotalGold()>MPotions[Option-4]->getPrice())
+		if(user->getTotalGold()>=MPotions[Option-4]->getPrice())
 		{
 			Compra = new ManaPotion(*(ManaPotion*)MPotions[Option-4]); // construtor de copia
 			user->getItem(Compra);
@@ -179,7 +179,7 @@ int Loja::weaponShop(Character* user)
 	}
 }
 
-void Loja::start(Team* userTeam)
+void Loja::start(Team* userTeam, int type)
 {
 	int Option;
 	int aux;
@@ -239,7 +239,14 @@ void Loja::start(Team* userTeam)
 					mode=3;
 					break;
 				}
-				mode=0;
+				if(type==0)
+				{
+					mode=0;
+				}
+				if(type==1)
+				{
+					mode=5;
+				}
 				break;
 			case 3:
 				cout << "\033[2J\033[1;1H";
@@ -266,6 +273,26 @@ void Loja::start(Team* userTeam)
 					break;
 				}
 				if(Option==3)
+				{
+					mode=4;
+					break;
+				}
+			case 5:
+				potionShop(player);
+				cout << endl << "Compra Finalizada.\n0 : Comprar novamente.\n1 : Sair" << endl;
+				cout << "Escolha: ";
+				cin >> Option;
+				while(Option<0||Option>1)
+				{
+					cout << "Opção Inválida. Escolha novamente" << endl << "Escolha:" << endl;
+					cin >> Option;
+				}
+				if(Option==0)
+				{
+					mode=5;
+					break;
+				}
+				if(Option==1)
 				{
 					mode=4;
 					break;

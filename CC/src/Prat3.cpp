@@ -53,7 +53,7 @@ while(Menu)
 				this_thread::sleep_for(std::chrono::milliseconds(2000));
 				break;
 			}
-			Shop->start(Teams[0]);
+			Shop->start(Teams[0],0);
 			break;
 		case 2:
 
@@ -66,33 +66,7 @@ while(Menu)
 				this_thread::sleep_for(std::chrono::milliseconds(2000));
 				break;
 			}
-			do{
-				cout << "\033[2J\033[1;1H";
-				cout << "Escolha qual personagem usara a loja: (Insira qualquer outro numero para sair)" << endl;
-				for(int i = 0 ; i < numchars ; i++)
-				{
-					cout << i << ": " << Teams[0]->getCharacter(i)->getName() << endl;
-				}
-				cout << numchars << ": Sair" << endl;
-				cin >> chosen;
-				if(chosen==numchars)
-				{
-					cout << "\033[2J\033[1;1H";
-					cout << "Saindo da loja" << endl;
-					this_thread::sleep_for(std::chrono::milliseconds(1000));
-					break;
-				}
-				while(chosen<0||chosen>numchars)
-				{
-					cout << Err << endl << "Escolha:" << endl;
-					cin >> chosen;
-				}
-				Shop->potionShop(Players[chosen]);
-				cout << endl << "Compra Finalizada.\n1 : Comprar novamente.\n2 : Sair" << endl;
-				cout << "Escolha: ";
-				cin >> Option;
-			} while (Option == 1);
-
+			Shop->start(Teams[0],1);
 			break;
 
 		case 3:

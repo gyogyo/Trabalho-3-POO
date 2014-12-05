@@ -26,7 +26,7 @@ class Loja
 	public:
 		Loja();
 		~Loja();
-		void start(Team*);
+		void start(Team*,int);
 		void potionShop(Character*);
 		int armorShop(Character*);
 		int weaponShop(Character*);
