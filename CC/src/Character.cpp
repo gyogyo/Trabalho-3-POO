@@ -12,6 +12,8 @@ Character::Character(string Name){
 	HP = 100;
 	MP = 100;
 	willpower=1;
+	status = 0;
+	skillcost = 0;
 	randomGenerate();
 }
 
@@ -38,7 +40,7 @@ void Character::randomGenerate(){
 	limite -= (dexterity-1);
 	constitution = limite;
 	atkspeed = (rand()/double(RAND_MAX))*3;
-	accuracy = ((rand()/double(RAND_MAX))*50) + 50;
+	accuracy = ((rand()/double(RAND_MAX))*70) + 30;
 
 }
 
@@ -71,20 +73,32 @@ void Character::addMP(int Amount){
 	else MP += Amount;
 }
 
-void Character::setStrenght(int Amount){
-	if(Amount>0&&Amount<101) strenght = Amount;
+void Character::setStrenght(int Amount, bool Add){
+	if(Add){
+	if((strenght+Amount)>0&&(strenght+Amount)<101) strenght += Amount;
+	}
+	else if(Amount>0&&Amount<101) strenght = Amount;
 }
 
-void Character::setSpeed(int Amount){
-	if(Amount>0&&Amount<101) speed = Amount;
+void Character::setSpeed(int Amount, bool Add){
+	if(Add){
+	if((basespeed+Amount)>0&&(basespeed+Amount)<101) basespeed += Amount;
+	}
+	else if(Amount>0&&Amount<101) basespeed = Amount;
 }
 
-void Character::setDexterity(int Amount){
-	if(Amount>0&&Amount<101) dexterity = Amount;
+void Character::setDexterity(int Amount, bool Add){
+	if(Add){
+	if((dexterity+Amount)>0&&(dexterity+Amount)<101) dexterity += Amount;
+	}
+	else if(Amount>0&&Amount<101) dexterity = Amount;
 }
 
-void Character::setConstitution(int Amount){
-	if(Amount>0&&Amount<101) constitution = Amount;
+void Character::setConstitution(int Amount, bool Add){
+	if(Add){
+	if((constitution+Amount)>0&&(constitution+Amount)<101) constitution += Amount;
+	}
+	else if(Amount>0&&Amount<101) constitution = Amount;
 }
 
 void Character::setAttackSpeed(int Amount){

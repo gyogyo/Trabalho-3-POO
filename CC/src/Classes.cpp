@@ -5,11 +5,13 @@
 
 Knight::Knight(string Name) : Character(Name){
 	power = (rand()/double(RAND_MAX))*6;
+	skillcost = 20;
 }
 
 Knight::Knight(string Name, int Power, int Strength, int Speed, int Dexterity, int Constitution) : Character(Name,Strength,Speed,Dexterity,Constitution){
 	atkspeed = 1;
 	accuracy = 90;
+	skillcost = 20;
 	power = Power;
 }
 
@@ -52,12 +54,14 @@ void Knight::specialAttack(Character* Enemy){ //Sol
 
 Wizard::Wizard(string Name) : Character(Name){
 	wisdom = (rand()/double(RAND_MAX))*6;
+	skillcost = 25;
 }
 
 Wizard::Wizard(string Name, int Wisdom, int Strength, int Speed, int Dexterity, int Constitution) : Character(Name,Strength,Speed,Dexterity,Constitution){
 	atkspeed=1;
 	accuracy=90;
 	wisdom = Wisdom;
+	skillcost = 25;
 }
 
 void Wizard::addWisdom(int Amount){
@@ -97,12 +101,14 @@ void Wizard::specialAttack(Character* Enemy){ //Thunder Jolt
 
 Thief::Thief(string Name) : Character(Name){
 	stealth = (rand()/double(RAND_MAX))*6;
+	skillcost = 10;
 }
 
 Thief::Thief(string Name, int Stealth, int Strength, int Speed, int Dexterity, int Constitution) : Character(Name,Strength,Speed,Dexterity,Constitution){
 	atkspeed=2;
 	accuracy=70;
 	stealth = Stealth;
+	skillcost = 10;
 }
 
 void Thief::addStealth(int Amount){
@@ -139,12 +145,14 @@ void Thief::specialAttack(Character* Enemy){ //Venom Strike
 
 Duelist::Duelist(string Name) : Character(Name){
 	proficiency = (rand()/double(RAND_MAX))*6;
+	skillcost = 33;
 }
 
 Duelist::Duelist(string Name, int Proficiency, int Strength, int Speed, int Dexterity, int Constitution) : Character(Name,Strength,Speed,Dexterity,Constitution){
 	atkspeed=3;
 	accuracy=70;
 	proficiency = Proficiency;
+	skillcost = 33;
 }
 
 
@@ -183,12 +191,14 @@ void Duelist::specialAttack(Character* Enemy){ //Astra
 
 Paladin::Paladin(string Name) : Character(Name){
 	holy = (rand()/double(RAND_MAX))*6;
+	skillcost = 15;
 }
 
 Paladin::Paladin(string Name, int Holy, int Strength, int Speed, int Dexterity, int Constitution) : Character(Name,Strength,Speed,Dexterity,Constitution){
 	atkspeed=1;
 	accuracy=80;
 	holy = Holy;
+	skillcost = 15;
 }
 
 void Paladin::addHoly(int Amount){

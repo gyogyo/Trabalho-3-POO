@@ -4,7 +4,7 @@
 #include <Character.hpp>
 #include <string>
 #include <vector>
-#include <Colors.hpp>
+#include <Enum.hpp>
 
 using namespace std;
 
@@ -15,7 +15,6 @@ class Team {
 	int color; //Cores nomeadas no Enum
 	int win;
 	int lose;
-	int draw;
 	vector<Character*> characters;
 
 	public:

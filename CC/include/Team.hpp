@@ -15,7 +15,6 @@ class Team {
 	int color; //Cores nomeadas no Enum
 	int win;
 	int lose;
-	int draw;
 	vector<Character*> characters;
 
 	public:
@@ -28,7 +27,6 @@ class Team {
 	int getSize();
 	string toString();
 	void fight(Team&);
-	int resolveBattle(Team&);
 	void addChar(Character*);
 	void clear();
 	void removeChar(int);

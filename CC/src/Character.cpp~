@@ -1,4 +1,4 @@
-﻿#include <string>
+#include <string>
 #include <iostream>
 #include <cmath>
 #include <Character.hpp>
@@ -12,6 +12,7 @@ Character::Character(string Name){
 	HP = 100;
 	MP = 100;
 	willpower=1;
+	status = 0;
 	randomGenerate();
 }
 
@@ -38,7 +39,7 @@ void Character::randomGenerate(){
 	limite -= (dexterity-1);
 	constitution = limite;
 	atkspeed = (rand()/double(RAND_MAX))*3;
-	accuracy = ((rand()/double(RAND_MAX))*50) + 50;
+	accuracy = ((rand()/double(RAND_MAX))*70) + 30;
 
 }
 
@@ -71,20 +72,32 @@ void Character::addMP(int Amount){
 	else MP += Amount;
 }
 
-void Character::setStrenght(int Amount){
-	if(Amount>0&&Amount<101) strenght = Amount;
+void Character::setStrenght(int Amount, bool Add){
+	if(Add){
+	if((strenght+Amount)>0&&(strenght+Amount)<101) strenght += Amount;
+	}
+	else if(Amount>0&&Amount<101) strenght = Amount;
 }
 
-void Character::setSpeed(int Amount){
-	if(Amount>0&&Amount<101) speed = Amount;
+void Character::setSpeed(int Amount, bool Add){
+	if(Add){
+	if((basespeed+Amount)>0&&(basespeed+Amount)<101) basespeed += Amount;
+	}
+	else if(Amount>0&&Amount<101) basespeed = Amount;
 }
 
-void Character::setDexterity(int Amount){
-	if(Amount>0&&Amount<101) dexterity = Amount;
+void Character::setDexterity(int Amount, bool Add){
+	if(Add){
+	if((dexterity+Amount)>0&&(dexterity+Amount)<101) dexterity += Amount;
+	}
+	else if(Amount>0&&Amount<101) dexterity = Amount;
 }
 
-void Character::setConstitution(int Amount){
-	if(Amount>0&&Amount<101) constitution = Amount;
+void Character::setConstitution(int Amount, bool Add){
+	if(Add){
+	if((constitution+Amount)>0&&(constitution+Amount)<101) constitution += Amount;
+	}
+	else if(Amount>0&&Amount<101) constitution = Amount;
 }
 
 void Character::setAttackSpeed(int Amount){
@@ -103,13 +116,20 @@ void Character::physiqueDown(){
 	willpower=1;
 }
 
+void Character::setStatus(int Which, bool Flag){ //Flag é um bool, Which é o bit de qual status modificar
+	if(Flag && !(status & Which))
+		status += Which;
+	else if(!Flag && (status & Which))
+		status -= Which;
+}
+
 void Character::PrintInfo(){ //Debug Print
 	string S = " "; //String Macro de espaco para escrever menos.
 	cout
-	<< "Alias: " << alias << endl
-	<< "HP/Str/Spd/Dex/Con: " << HP <<S<< strenght <<S<< speed <<S<< dexterity <<S<< constitution <<S<< endl;
+	<< "\nAlias: " << alias << endl
+	<< "HP:" << HP << "\nStr:" << strenght << "\nSpd:" << speed << "\nDex:" << dexterity << "\nCon:" << constitution << S << endl;
 	myitems.PrintInfo();
-	cout << "Atk/Def: " << getAttackPoints() <<S<< getDefensePoints() << endl << endl;
+	cout << "Atk: " << getAttackPoints() <<"\nDef:"<< getDefensePoints() << endl << endl;
 }
 
 void Character::PrintItemsInfo(){ //Debug Print
@@ -118,6 +138,10 @@ void Character::PrintItemsInfo(){ //Debug Print
 
 double Character::getTotalGold(){
 	return myitems.getTotalGold();  
+}
+
+void Character::spendGold(double a){
+	return myitems.spendGold(a);  
 }
 
 void Character::getItem(Item* New){
@@ -182,4 +206,6 @@ void Character::attack(Character* Enemy){
 		}
 
 	physiqueDown();
-	}
+}
+
+void Character::specialAttack(Character* Target){}

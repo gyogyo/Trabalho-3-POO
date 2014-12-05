@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdlib>
 #include <Inventory.hpp>
+#include <Enum.hpp>
 using namespace std;
 
 class Character {
@@ -24,6 +25,8 @@ class Character {
 	int atkspeed; // nro de hits por turno do personagem
 	int accuracy; // accuracy
 	int willpower;
+	int status;
+	int skillcost;
 
 //Metodos
 	public:
@@ -35,20 +38,19 @@ class Character {
 	int getHP();
 	int getMP();
 	int getSpeed();
-
-	void attack(Character*);
+	int getStatus();
 
 	//Setters
-	void addXP(int);
-	void setStrenght(int);
-	void setSpeed(int);
-	void setDexterity(int);
-	void setConstitution(int);
+	void setStrenght(int, bool);
+	void setSpeed(int, bool);
+	void setDexterity(int, bool);
+	void setConstitution(int, bool);
 	void setAttackSpeed(int);
 	void addHP(int);
 	void addMP(int);
 	void physiqueUp();
 	void physiqueDown();
+	void setStatus(int,bool);
 
 	//Funcao Debug
 	void PrintInfo();
@@ -57,19 +59,16 @@ class Character {
 	//Manipulacao de items e inventario
 	void getItem(Item*);
 	double getTotalGold();
+	void spendGold(double);
 	void equipWeapon(Item*);
 	void equipArmor(Item*);
 	void useItem(Item*);
 	void useItem(int);
 
 	//Calculo de batalha
-	protected:
+	virtual void attack(Character*);
+	virtual void specialAttack(Character*);
 	virtual int getDefensePoints();
-	friend class Knight;
-	friend class Wizard;
-	friend class Thief;
-	friend class Duelist;
-	friend class Paladin;
 	virtual int getAttackPoints();
 
 };

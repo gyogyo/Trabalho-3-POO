@@ -2,158 +2,153 @@
 #include <vector>
 #include <deque>
 #include <iostream>
+#include <chrono>
+#include <thread>
 #include <Team.hpp>
-#include <Colors.hpp>
 #include <Character.hpp>
 
 using namespace std;
 
 Team::Team(string Name, int colour){
-name = Name;
-color = colour;
-win = 0;
-lose = 0;
-draw = 0;
-characters = vector<Character*> (0);
+	name = Name;
+	color = colour;
+	win = 0;
+	lose = 0;
+	characters = vector<Character*> (0);
 }
 
 Team::~Team(){
-characters.clear();
+	characters.clear();
 }
 
 
 //Getters
 
 string Team::getName(){
-return name;
+	return name;
 }
 
 string Team::getResults(){
-string Info = "Wins: " + to_string(win) + " Losses: " + to_string(lose) + " Draw: " + to_string(draw);
-return Info;
+	string Info = "Wins: " + to_string(win) + " Losses: " + to_string(lose);
+	return Info;
 }
 
 Character* Team::getCharacter(int N){
-if(N < characters.size()) return characters[N];
-throw;
+	if(N < characters.size()) return characters[N];
+	throw;
 }
 
-int Team::getSize(int N){
-return characters.size();
+int Team::getSize(){
+	return characters.size();
 }
 
 string Team::toString(){
-string Info = name + " " + to_string(color);
-return Info;
+	string Info = name + " " + to_string(color);
+	return Info;
 }
 
 void Team::fight(Team& EnemyTeam){
-deque<int> rngTeam1; //Deque de personagens desse time.
-deque<int> rngTeam2; //Deque de personagens do time adversario.
-deque<int> TurnOrder; //Deque de ordem de quem luta com quem.
-for(int i=0; i<characters.size(); i++) rngTeam1.push_back(i); //Colocar ints em uma deque para evitar repeticao.
-for(int i=0; i<EnemyTeam.characters.size(); i++) rngTeam2.push_back(i);
-while((rngTeam1.size()>0)&&(rngTeam2.size()>0)){
-	int i = rand()%rngTeam1.size(); //Puxar ints aleatoriamente para sortear os personagens.
-	int j = rngTeam1[i];
-	rngTeam1.erase(rngTeam1.begin()+i); //Apagar int ja selecionado.
-	TurnOrder.push_back(j); //Empilhar turno.
-	i = rand()%rngTeam2.size(); //Puxar ints aleatoriamente para sortear os personagens do outro time.
-	j = rngTeam2[i];
-	rngTeam2.erase(rngTeam2.begin()+i); //Apagar int ja selecionado.
-	TurnOrder.push_back(j); //Empilhar turno.
-}
-while(TurnOrder.size()>1){
-	int Option;
-	int i = TurnOrder.front();
-	TurnOrder.pop_front();
-	int j = TurnOrder.front();
-	TurnOrder.pop_front();
-	cout << "Luka to Jojo no RPG:" << endl << endl << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
-	cin >> Option;
-	while(Option<1||Option>5)
-	{
-		cout << "\nOpção Inválida. Escolha novamente\nOp: ";
-		cin >> Option;
-	}
-	while(Option==1)
-	{
-		system("CLS");
-		characters[i]->attack(EnemyTeam.characters[j]);
-		cout << "Luka to Jojo no RPG:\n\n" << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
-		cin >> Option;
-		while(Option<1||Option>5)
-		{
-			cout << "\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option;
-		}
-	}
-	while(Option==2)
-	{
-		system("CLS");
-		characters[i]->attack(EnemyTeam.characters[j]); // mudar
-		cout << "Luka to Jojo no RPG:\n\n" << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
-		cin >> Option;
-		while(Option<1||Option>5)
-		{
-			cout << "\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option;
-		}
-	}
-	while(Option==3)
-	{
-		system("CLS");
-		characters[i]->attack(EnemyTeam.characters[j]); // mudar
-		cout << "Luka to Jojo no RPG:\n\n" << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
-		cin >> Option;
-		while(Option<1||Option>5)
-		{
-			cout << "\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option;
-		}
-	}
-	while(Option==4)
-	{
-		system("CLS");
-		characters[i]->physiqueUp();
-		cout << "Luka to Jojo no RPG:\n\n" << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
-		cin >> Option;
-		while(Option<1||Option>5)
-		{
-			cout << "\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option;
-		}
-	}
-	while(Option==5)
-	{
-		int ItemOption;
-		system("CLS");
-		cout << "Escolha um item usável";
-		cout << "-1 - Cancel";
-		characters[i]->PrintItemsInfo();
-		cin >> ItemOption;
-		if(ItemOption!=-1)
-		{
-			characters[i]->useItem(ItemOption);
-		}
-		cout << "Luka to Jojo no RPG:\n\n" << characters[i]->getName() <<"  : HP: "<< characters[i]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[j]->getHP() <<"  : "<< EnemyTeam.characters[j]->getName() <<" \n\nModes:\n1 - Attack\n2 - Magic Attack\n3 - Defend\n4 - Psyche Up\n5 - Item\n Op: ";
-		cin >> Option;
-		while(Option<1||Option>5)
-		{
-			cout << "\nOpção Inválida. Escolha novamente\nOp: ";
-			cin >> Option;
-		}
-	}
-}
-}
 
-int Team::resolveBattle(Team& EnemyTeam){
-int AllyPoints = this->getPoints();
-int EnemyPoints = EnemyTeam.getPoints(); //Pegar media de HP
-if(AllyPoints < EnemyPoints) lose+=1; //Comparar media de HP
-else if(AllyPoints >EnemyPoints) win+=1;
-else draw+=1;
-return 0; //Por que e que essa funcao retorna int?
+	int FightEnd = 0;
+	int Option;
+	bool Turn = (characters[0]->getSpeed() < EnemyTeam.characters[0]->getSpeed())? true:false;
+	while(FightEnd == 0){
+		if(Turn == true){
+			cout << "\033[2J\033[1;1H";
+			cout << "Luka to Jojo no RPG:" << endl << endl << characters[0]->getName() <<": HP: "<< characters[0]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[0]->getHP() <<"  :"<< EnemyTeam.characters[0]->getName() <<" \n\nModes:\n0 - Attack\n1 - Skill\n2 - Defend\n3 - Psyche Up\n4 - Item" << endl;
+			cin >> Option;
+			while(Option<0||Option>4){
+				cout << "Opção Inválida. Escolha novamente.\nEscolha: " << endl;
+				cin >> Option;
+			}
+			switch(Option){
+			case 0:
+				characters[0]->attack(EnemyTeam.characters[0]);
+				break;
+			case 1:
+				if(characters[0]->getMP() > characters[0]->getSkillCost()){
+					characters[0]->specialAttack(EnemyTeam.characters[0]);
+					characters[0]->addMP(-characters[0]->getSkillCost());
+					}
+				else cout << "Nao ha MP disponivel para ataque especial!" << endl;
+				break;
+			case 2:
+			case 3:
+				characters[0]->physiqueUp();
+				break;
+			case 4:
+				cout << "Escolha um item usável\n-1 - Cancel" << endl;
+				characters[0]->PrintItemsInfo();
+				cin >> Option;
+				if(Option!=-1){
+					characters[0]->useItem(Option);
+				}
+				break;
+			}
+		this_thread::sleep_for(std::chrono::milliseconds(1000));
+		Turn = false;
+		}
+		else{
+			cout << "\033[2J\033[1;1H";
+			cout << "Luka to Jojo no RPG:" << endl << endl << characters[0]->getName() <<": HP: "<< characters[0]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[0]->getHP() <<"  :"<< EnemyTeam.characters[0]->getName() <<" \n\nModes:\n0 - Attack\n1 - Skill\n2 - Defend\n3 - Psyche Up\n4 - Item" << endl;
+			Option = ((rand()/double(RAND_MAX))*4);
+			switch(Option){
+			case 0:
+				EnemyTeam.characters[0]->attack(characters[0]);
+				break;
+			case 1:
+				if(EnemyTeam.characters[0]->getMP() > EnemyTeam.characters[0]->getSkillCost()){
+					EnemyTeam.characters[0]->specialAttack(characters[0]);
+					EnemyTeam.characters[0]->addMP(-EnemyTeam.characters[0]->getSkillCost());
+					}
+				else cout << "Nao ha MP disponivel para ataque especial!" << endl;
+				break;
+			case 2:
+			case 3:
+				EnemyTeam.characters[0]->physiqueUp();
+				break;
+			/*case 4:
+				cout << "Escolha um item usável\n-1 - Cancel" << endl;
+				characters[i]->PrintItemsInfo();
+				cin >> ItemOption;
+				if(ItemOption!=-1){
+					characters[i]->useItem(ItemOption);
+				}
+				break;*/
+			}
+		this_thread::sleep_for(std::chrono::milliseconds(1000));
+		Turn = true;
+		}
+	
+		if(EnemyTeam.characters[0]->getHP == 0) {
+			cout << EnemyTeam.characters[0]->getName() << " foi derrotado!" << endl;
+			EnemyTeam.characters.erase(EnemyTeam.characters.begin());
+			this_thread::sleep_for(std::chrono::milliseconds(1000));
+			if(EnemyTeam.getSize() < 1) FightEnd = 1;
+		}
+
+		if(characters[0]->getHP == 0) {
+			cout << characters[0]->getName() << " foi derrotado!" << endl;
+			characters.erase(characters.begin());
+			this_thread::sleep_for(std::chrono::milliseconds(1000));
+			if(getSize() < 1) FightEnd = 2;
+		}
+	}
+
+	if(FightEnd == 1){
+		cout << "Vitoria! Voce ganha 200 gold para cada personagem!" << endl;
+		for(int i = 0; i < getSize(); i++) characters[i]->spendGold(-200);
+		this_thread::sleep_for(std::chrono::milliseconds(5000));
+		win += 1;
+		EnemyTeam.lose += 1;
+	}
+
+	else{
+		cout << "Derrota! Game over!" << endl;
+		this_thread::sleep_for(std::chrono::milliseconds(5000));
+		EnemyTeam.win += 1;
+		lose += 1;
+	}
 }
 
 //Operacoes com items
@@ -201,7 +196,7 @@ return (Points/TeamSize);
 void Team::PrintInfo(){ //Debug Print
 string S = " ";
 cout << "Team: " << color << endl;
-cout << "Wins: " << win << " Losses: " << lose << " Draw: " << draw << endl;
+cout << "Wins: " << win << " Losses: " << lose << endl;
 getResults();
 int TeamSize = characters.size();
 for(int i=0; i<TeamSize; i++) characters[i]->PrintInfo();

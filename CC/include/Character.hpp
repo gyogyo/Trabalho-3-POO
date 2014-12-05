@@ -26,6 +26,7 @@ class Character {
 	int accuracy; // accuracy
 	int willpower;
 	int status;
+	int skillcost;
 
 //Metodos
 	public:
@@ -38,13 +39,13 @@ class Character {
 	int getMP();
 	int getSpeed();
 	int getStatus();
+	int getSkillCost();
 
 	//Setters
-	void addXP(int);
-	void setStrenght(int);
-	void setSpeed(int);
-	void setDexterity(int);
-	void setConstitution(int);
+	void setStrenght(int, bool);
+	void setSpeed(int, bool);
+	void setDexterity(int, bool);
+	void setConstitution(int, bool);
 	void setAttackSpeed(int);
 	void addHP(int);
 	void addMP(int);
