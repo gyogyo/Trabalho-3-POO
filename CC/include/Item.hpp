@@ -23,11 +23,14 @@ class Item {
 	void setPoints(int);
 	Item(string, double, int);
 	Item(Item&);
+	//Setter
 	void setOwner(Character*);
+	//Getters
 	string getName();
 	double getPrice();
 	int getPoints();
 	Character* getOwner();
+	//Funçoes proprias de item
 	virtual void use() = 0;
 	virtual void equip();
 };

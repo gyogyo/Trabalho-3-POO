@@ -7,7 +7,8 @@
 
 using namespace std;
 
-Character::Character(string Name){
+Character::Character(string Name)// construtor básico, gera atributos aleatorios
+{
 	alias = Name;
 	HP = 100;
 	MP = 100;
@@ -17,7 +18,8 @@ Character::Character(string Name){
 	randomGenerate();
 }
 
-Character::Character(string Name,int Strength,int Speed,int Dexterity,int Constitution){
+Character::Character(string Name,int Strength,int Speed,int Dexterity,int Constitution)
+{//construtor comum, utiliza os atributos passados por parametro
 	alias=Name;
 	HP = 100;
 	MP = 100;
@@ -30,8 +32,8 @@ Character::Character(string Name,int Strength,int Speed,int Dexterity,int Consti
 	constitution = Constitution;
 }
 
-void Character::randomGenerate(){
-
+void Character::randomGenerate()
+{
 	//Logica para os pontos: Ha 4 Rands() seguidos, que puxam de um total de 97 pontos cumulativos.
 	//O algoritmo foi feito para que sempre ao menos sobre 1 ponto, para evitar a divisao por 0.
 	//Desse modo, ha na verdade, 96 pontos disponiveis, ja que o minimo de cada um dos quatro atributos e 1.
@@ -49,116 +51,152 @@ void Character::randomGenerate(){
 
 }
 
-Character* Character::clone(){
+Character* Character::clone()
+{
 	Character* clone = new Character(alias,strenght,speed,dexterity,constitution);
 	return clone;
 }
 
 //Getters
 
-string Character::getName(){
+string Character::getName()
+{
 	return alias;
 }
 
-int Character::getHP(){
+int Character::getHP()
+{
 	return HP;
 }
 
-int Character::getMP(){
+int Character::getMP()
+{
 	return MP;
 }
 
-int Character::getSpeed(){
+int Character::getSpeed()
+{
 	return speed;
 }
 
-int Character::getStatus(){
+int Character::getStatus() //Para status effect
+{
 	return status;
 }
 
-int Character::getSkillCost(){
+int Character::getSkillCost() // custo de mana
+{
 	return skillcost;
 }
 
-int Character::getSkillPts(){
+int Character::getSkillPts() // nro de pontos redistribuíveis
+{
 	return skillpts;
 }
 
 //Setters
-void Character::addHP(int Amount){
+void Character::addHP(int Amount) //Sim, HP pode passar de 100!
+{
 	if((HP+Amount)<0) HP = 0; //HP não negativo.
 	else HP += Amount;
 }
 
-void Character::addMP(int Amount){
+void Character::addMP(int Amount) //Sim, MP pode passar de 100!
+{
 	if((MP+Amount)<0) MP = 0; //MP não negativo.
 	else MP += Amount;
 }
 
-void Character::setStrenght(int Amount, bool Add){
-	if(Add){
-	if((strenght+Amount)>0&&(strenght+Amount)<101) strenght += Amount;
+void Character::setStrenght(int Amount, bool Add)
+{
+	if(Add)
+	{
+		if((strenght+Amount)>0&&(strenght+Amount)<101) strenght += Amount;
 	}
-	else if(Amount>0&&Amount<101) strenght = Amount;
+	else if(Amount>0&&Amount<101)
+	{
+		strenght = Amount;
+	}
 }
 
 void Character::setSpeed(int Amount, bool Add){
-	if(Add){
-	if((basespeed+Amount)>0&&(basespeed+Amount)<101) basespeed += Amount;
+	if(Add)
+	{
+		if((basespeed+Amount)>0&&(basespeed+Amount)<101) basespeed += Amount;
 	}
-	else if(Amount>0&&Amount<101) basespeed = Amount;
+	else if(Amount>0&&Amount<101)
+	{
+		basespeed = Amount;
+	}
 }
 
 void Character::setDexterity(int Amount, bool Add){
-	if(Add){
-	if((dexterity+Amount)>0&&(dexterity+Amount)<101) dexterity += Amount;
+	if(Add)
+	{
+		if((dexterity+Amount)>0&&(dexterity+Amount)<101) dexterity += Amount;
 	}
-	else if(Amount>0&&Amount<101) dexterity = Amount;
+	else if(Amount>0&&Amount<101)
+	{
+		dexterity = Amount;
+	}
 }
 
 void Character::setConstitution(int Amount, bool Add){
-	if(Add){
-	if((constitution+Amount)>0&&(constitution+Amount)<101) constitution += Amount;
+	if(Add)
+	{
+		if((constitution+Amount)>0&&(constitution+Amount)<101) constitution += Amount;
 	}
-	else if(Amount>0&&Amount<101) constitution = Amount;
+	else if(Amount>0&&Amount<101)
+	{
+		constitution = Amount;
+	}
 }
 
-void Character::setAttackSpeed(int Amount){
+void Character::setAttackSpeed(int Amount)
+{
 	if(Amount>0&&Amount<6) atkspeed = Amount;
 }
 
 
-void Character::physiqueUp(){
-	if(willpower==1){
+void Character::physiqueUp()
+{
+	if(willpower==1)
+	{
 		willpower=2;
 		cout << alias << " gathers strenght! " << willpower << " units of power boost!" << endl;
 	}
 
-	else if(willpower==2){
+	else if(willpower==2)
+	{
 		willpower=5;
 		cout << alias << " gathers strenght! " << willpower << " units of power boost!" << endl;
 	}
-	else{
+	else
+	{
 		cout << alias << " tries to gather strenght, but fails!" << endl << alias << "is already at max power!" <<endl;
 	}
 }
 
-void Character::physiqueDown(){
+void Character::physiqueDown()
+{
 	willpower=1;
 }
 
-void Character::setStatus(int Which, bool Flag){ //Flag é um bool, Which é o bit de qual status modificar
+void Character::setStatus(int Which, bool Flag) //Flag é um bool, Which é o bit de qual status modificar
+{
 	if(Flag && !(status & Which))
 		status += Which;
 	else if(!Flag && (status & Which))
 		status -= Which;
 }
 
-void Character::addSkillPts(int Amount){
+void Character::addSkillPts(int Amount)
+{
 	skillpts += Amount;
 }
 
-void Character::PrintInfo(){ //Debug Print
+void Character::PrintInfo() //Debug Print
+{	
 	string S = " "; //String Macro de espaco para escrever menos.
 	cout
 	<< "Nome: " << alias << endl
@@ -167,92 +205,109 @@ void Character::PrintInfo(){ //Debug Print
 	cout << endl << "Pontos de status remanescentes: " << skillpts << endl;
 }
 
-void Character::PrintItemsInfo(){ //Debug Print
+void Character::PrintItemsInfo() //Debug Print
+{
 	myitems.PrintInfo();
 }
 
-double Character::getTotalGold(){
+double Character::getTotalGold()
+{
 	return myitems.getTotalGold();  
 }
 
-void Character::spendGold(double a){
+void Character::spendGold(double a)
+{
 	myitems.spendGold(a);  
 }
 
-void Character::earnGold(double a){
+void Character::earnGold(double a)
+{
 	myitems.earnGold(a);  
 }
 
-int Character::size(){
+int Character::size()
+{
 	return myitems.size();  
 }
 
-void Character::getItem(Item* New){
+void Character::getItem(Item* New)
+{
 	New->setOwner(this);
 	myitems.insertItem(New);  //Colocar um item no inventario.
 }
 
-void Character::equipWeapon(Item* Select){
+void Character::equipWeapon(Item* Select)
+{
 	//cout << Select2->getName() << " " << Select2->getRange() << endl; //Debug Print
 	myitems.equipWeapon(Select->getName());
 }
 
-void Character::equipArmor(Item* Select){
+void Character::equipArmor(Item* Select)
+{
 	//cout << Select2->getName() << " " << Select2->getWeight() << endl; //Debug Print
 	//setSpeed(basespeed*(sqrt(Select->getWeight())/10)); //Formula estranha de velocidade que aumenta velocidade com armadura mais pesada.
 	myitems.equipArmor(Select->getName());
 }
 
 template<>
-void Character::useItem<Item*>(Item* Use){
+void Character::useItem<Item*>(Item* Use)
+{
 	if(myitems.searchItem(Use->getName())==NULL) return; //Se esse item estiver no inventorio
 	Use->use();
 }
 
 template<>
-void Character::useItem<int>(int Select){
+void Character::useItem<int>(int Select)
+{
 	Item* Selected = myitems.searchItem(Select);
 	if(Selected==NULL) return; //Se esse item estiver no inventorio
 	Selected->use();
 }
 
-void Character::equipItem(int Select){
+void Character::equipItem(int Select)
+{
 	Item* Selected = myitems.searchItem(Select);
 	if(Selected==NULL) return; //Se esse item estiver no inventorio
 	Selected->equip();
 }
 
 template<>
-double Character::removeItem<int>(int Select){
+double Character::removeItem<int>(int Select) // remove por posiçao no inventario
+{
 	return myitems.removeItem(Select);
 }
 
 template<>
-double Character::removeItem<Item*>(Item* Select){
+double Character::removeItem<Item*>(Item* Select) // remove todos o item com o mesmo 'name' de Select
+{
 	return myitems.removeItem(Select->getName());
 }
 
 //Em ambas as contas, os numeros fracionados foram simplificados como fator comum de 10.
 //Devido a fracoes, ha duas operacoes de truncamento que podem influenciar as contas finais.
 
-int Character::getDefensePoints(){
+int Character::getDefensePoints()
+{
 	int BaseDef = (int) (((constitution*5)+(dexterity*2)+(speed*4))/10);
 	return (int) (BaseDef+myitems.itemDefPts())/6;
 }
 
-int Character::getAttackPoints(){
+int Character::getAttackPoints()
+{
 	int BaseAtk = (int) (((strenght*5)+(dexterity*4)+(speed*2))/10);
 	return (int) (BaseAtk+myitems.itemAtkPts())/2;
 }
 
 
-void Character::block(bool Guard){
+void Character::block(bool Guard)
+{
 	if(Guard) cout << alias << " assumed a defensive stance!" << endl;
 	else cout << alias << " has left his guard down!" << endl;
 	guard = Guard;
 }
 
-bool Character::isBlocking(){
+bool Character::isBlocking()
+{
 	return guard;
 }
 
@@ -262,7 +317,8 @@ bool Character::isBlocking(){
 //A chance de erro e 0.1/XP = (10/XP)%
 //Essas chances serao ativadas se o RNG gerar um numero porcentual menor que as formulas.
 
-void Character::attack(Character* Enemy){
+void Character::attack(Character* Enemy)
+{
 	int RanNum, CritNum, Damage;
 
 	int EnemyDodge = Enemy->getSpeed()/2;
@@ -288,8 +344,10 @@ void Character::attack(Character* Enemy){
 		}
 		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 	}
-
 	physiqueDown();
 }
 
-void Character::specialAttack(Character* Target){cout << "Default Special??" << endl;}
+void Character::specialAttack(Character* Target)
+{
+	cout << "Default Special??" << endl;
+}

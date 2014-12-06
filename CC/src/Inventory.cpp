@@ -5,7 +5,8 @@
 
 using namespace std;
 
-Inventory::Inventory(){
+Inventory::Inventory()
+{
 	spaces = 10;
 	gold = 500.0;
 	armorequip = -1; //Nada equipado
@@ -35,32 +36,38 @@ int Inventory::getAvailableSpace()
 
 //Setters
 
-void Inventory::spendGold(double Amount){
+void Inventory::spendGold(double Amount)
+{
 	if((gold - Amount)>=0) gold -= Amount; //Gold nao negativo.
 }
 
-void Inventory::earnGold(double Amount){
+void Inventory::earnGold(double Amount)
+{
 	gold += Amount;
 }
 
-int Inventory::size(){
+int Inventory::size()
+{
 	return items.size();
 }
 
 //Enquanto o atributo spaces indica o espaca disponivel, setSpaces(int) altera o espaco absoluto.
 //Se for colocado um numero menor que o tamanho atual, os items extras serao forcadamente removidos.
 
-void Inventory::setSpaces(int Amount){
-	if(Amount>0){
+void Inventory::setSpaces(int Amount)
+{
+	if(Amount>0)
+	{
 		items.resize(Amount);
 		spaces = (items.size())-(items.capacity());
-		}
+	}
 }
 
 //Operacoes com items
 //Retorna UM item com o devido nome.
 template<>
-Item* Inventory::searchItem<string>(string Name){
+Item* Inventory::searchItem<string>(string Name)
+{
 	int InvSize = items.size();
 	for(int i=0; i<InvSize; i++)
 		if(get<0>(items[i])->getName()==Name)
@@ -93,7 +100,8 @@ void Inventory::insertItem(Item* New)
 
 //Remove TODOS os items de mesmo nome.
 template<>
-double Inventory::removeItem<string>(string Name){
+double Inventory::removeItem<string>(string Name)
+{
 	double aux=0;
 	int InvSize = items.size();
 	for(int i=0; i<InvSize; i++)
@@ -110,7 +118,8 @@ double Inventory::removeItem<string>(string Name){
 
 //Remove o item com a posicao absoluta.
 template<>
-double Inventory::removeItem<int>(int Num){
+double Inventory::removeItem<int>(int Num)
+{
 	double aux = get<0>(items[Num])->getPrice();
 	if(weaponequip[0]==Num)
 	{
@@ -132,7 +141,8 @@ double Inventory::removeItem<int>(int Num){
 	{
 		armorequip=-1;
 	}
-	if(Num < items.size()){
+	if(Num < items.size())
+	{
 		items.erase(items.begin()+Num);
 		spaces++;
 	}
@@ -141,7 +151,8 @@ double Inventory::removeItem<int>(int Num){
 
 //Retorna soma total de ataque.
 
-int Inventory::itemAtkPts(){
+int Inventory::itemAtkPts()
+{
 	int InvSize = items.size();
 	int Total=0;
 	if(weaponequip[0]!=-1) Total += items[weaponequip[0]].first->getPoints();
@@ -151,24 +162,29 @@ int Inventory::itemAtkPts(){
 
 //Retorna soma total de defesa.
 
-int Inventory::itemDefPts(){
+int Inventory::itemDefPts()
+{
 	int InvSize = items.size();
 	int Total=0;
 	if(armorequip!=-1) Total += items[armorequip].first->getPoints();
 	return Total;
 }
 
-void Inventory::PrintInfo(){ //Debug Print
-string S = " ";
-cout << "Inventory: " << endl;
-int InvSize = items.size();
-for(int i=0; i<InvSize; i++)
-cout << "Item " << i << " : " << get<0>(items[i])->getName() << endl
-<< "Price/Points/Equip : " << get<0>(items[i])->getPrice() <<S<< get<0>(items[i])->getPoints() <<S<< get<1>(items[i]) << endl;
-cout << "Ataque/Defesa dos items equipados: " << itemAtkPts() <<S<< itemDefPts() << endl;
+void Inventory::PrintInfo()
+{ //Debug Print
+	string S = " ";
+	cout << "Inventory: " << endl;
+	int InvSize = items.size();
+	for(int i=0; i<InvSize; i++)
+	{
+		cout << "Item " << i << " : " << get<0>(items[i])->getName() << endl
+		<< "Price/Points/Equip : " << get<0>(items[i])->getPrice() <<S<< get<0>(items[i])->getPoints() <<S<< get<1>(items[i]) << endl;
+		cout << "Ataque/Defesa dos items equipados: " << itemAtkPts() <<S<< itemDefPts() << endl;
+	}
 }
 
-void Inventory::equipWeapon(string Select){
+void Inventory::equipWeapon(string Select)
+{
 	int InvSize = items.size();
 	int N = -1;
 	for(int i=0; i<InvSize; i++)
@@ -181,7 +197,8 @@ void Inventory::equipWeapon(string Select){
 }
 
 
-void Inventory::equipArmor(string Select){
+void Inventory::equipArmor(string Select)
+{
 	int InvSize = items.size();
 	int N = -1;
 	for(int i=0; i<InvSize; i++)

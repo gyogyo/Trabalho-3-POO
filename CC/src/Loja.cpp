@@ -118,7 +118,7 @@ int Loja::armorShop(Character* user)
 		if(user->getTotalGold()>=Armors[Option]->getPrice())
 		{
 			Compra = new Armor(*(Armor*)Armors[Option]); // construtor de copia
-			user->getItem(Compra);
+			user->getItem(Compra); // bem intuitivo
 			user->equipArmor(Compra);
 			user->spendGold(Armors[Option]->getPrice());
 		}
@@ -163,7 +163,7 @@ int Loja::weaponShop(Character* user)
 		if(user->getTotalGold()>=Weapons[Option]->getPrice())
 		{
 			Compra = new Weapon(*(Weapon*)Weapons[Option]); // construtor de copia
-			user->getItem(Compra);
+			user->getItem(Compra); // intuitivo
 			user->equipWeapon(Compra);
 			user->spendGold(Weapons[Option]->getPrice());
 		}
@@ -179,7 +179,7 @@ int Loja::weaponShop(Character* user)
 	}
 }
 
-void Loja::start(Team* userTeam, int type)
+void Loja::start(Team* userTeam, int type) //novamente funciona como uma maquina de estados
 {
 	int Option;
 	int aux;
@@ -190,7 +190,7 @@ void Loja::start(Team* userTeam, int type)
 	{
 		switch(mode)
 		{
-			case 0:
+			case 0: // modo de armor shop
 				aux = armorShop(player);
 				if(aux!=1)
 				{
@@ -203,7 +203,7 @@ void Loja::start(Team* userTeam, int type)
 					break;
 				}
 				break;
-			case 1:	
+			case 1:	// modo de weapon shop
 				aux = weaponShop(player);
 				if(aux!=0)
 				{
@@ -216,7 +216,7 @@ void Loja::start(Team* userTeam, int type)
 					break;
 				}
 				break;
-			case 2:
+			case 2: // modo de seleçao de personagem
 				cout << "\033[2J\033[1;1H";
 				cout << "Escolha qual personagem usara a loja: (Insira qualquer outro numero para sair)" << endl;
 				for(int i = 0 ; i < numchars ; i++)
@@ -248,7 +248,7 @@ void Loja::start(Team* userTeam, int type)
 					mode=5;
 				}
 				break;
-			case 3:
+			case 3: // saiu da loja
 				cout << "\033[2J\033[1;1H";
 				cout << "Acesso concluido. O que deseja?\n0 : Equipar uma arma\n1 : Equipar uma armadura\n2 : Equipar outro personagem\n3 : Sair\n\nEscolha: " << endl;
 				cin >> Option;
@@ -277,7 +277,7 @@ void Loja::start(Team* userTeam, int type)
 					mode=4;
 					break;
 				}
-			case 5:
+			case 5: // modo de loja de poçoes
 				potionShop(player);
 				cout << endl << "Compra Finalizada.\n0 : Comprar novamente.\n1 : Sair" << endl;
 				cout << "Escolha: ";

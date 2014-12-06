@@ -17,7 +17,7 @@ using namespace std;
 class Loja
 {
 	private:
-		Item* Armors[3];
+		Item* Armors[3]; // armas da loja
 		Item* Weapons[3];
 		Item* HPotions[4];
 		Item* MPotions[3];
@@ -26,7 +26,7 @@ class Loja
 	public:
 		Loja();
 		~Loja();
-		void start(Team*,int);
+		void start(Team*,int); // gerencia a loja
 		void potionShop(Character*);
 		int armorShop(Character*);
 		int weaponShop(Character*);

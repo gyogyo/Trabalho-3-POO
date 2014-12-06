@@ -42,7 +42,8 @@ while(Menu)
 	cout << Greet << endl;
 	cout << "Menu principal:\n0 - Escolher novo time\n1 - Loja de armas e armaduras\n2 - Loja de Pocoes\n3 - Batalhar\n4 - Checar status do Time\n5 - Sair\n\nEscolha: " << endl;
 	cin >> Option;
-	switch(Option){
+	switch(Option)
+	{
 		case 0:
 			PlayerSelect->assembleTeam(Teams[0]);
 			break;

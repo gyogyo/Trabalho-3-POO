@@ -24,21 +24,20 @@ class Character {
 	int constitution;
 	int atkspeed; // nro de hits por turno do personagem
 	int accuracy; // accuracy
-	int willpower;
+	int willpower; // multiplicador de ataque baseado no psyche up
 	int status;
-	int skillcost;
-	int skillpts;
-
-	bool guard;
+	int skillcost; // custo de mana da habilidade do personagem
+	int skillpts; // nro de pontos para aumentar os atributos dos personagens
+	bool guard; // if true => diminui dano pela metade
 
 //Metodos
 	public:
 	Character(string);
 	Character(string,int,int,int,int);
-	void randomGenerate();
-	virtual Character* clone();
+	void randomGenerate(); //setta atributos de forma aleatoria
+	virtual Character* clone(); //construtor de copia
 	//Getters
-	string getName();
+	string getName(); 
 	int getHP();
 	int getMP();
 	int getSpeed();
@@ -54,17 +53,17 @@ class Character {
 	void setAttackSpeed(int);
 	void addHP(int);
 	void addMP(int);
-	void physiqueUp();
-	void physiqueDown();
-	void setStatus(int,bool);
-	void addSkillPts(int);
+	void physiqueUp(); // altera willpower
+	void physiqueDown(); // altera willpower
+	void setStatus(int,bool); // altera status (paralyzed/poisoned)
+	void addSkillPts(int); // adiciona pontos de atributos para distribuir
 
 	//Funcao Debug
 	void PrintInfo();
 	void PrintItemsInfo();
 
-	//Manipulacao de items e inventario
-	int size();
+	//Manipulacao de items e inventario - maioria intuitiva
+	int size(); // devolve quantos itens há em inventory
 	void getItem(Item*);
 	double getTotalGold();
 	void spendGold(double);

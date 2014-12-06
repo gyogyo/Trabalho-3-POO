@@ -17,8 +17,8 @@ class Knight : public Character {
 	Knight(string);
 	Knight(string, int, int, int, int, int);
 	Character* clone();
-	virtual void specialAttack(Character*);
-	void addPower(int);
+	virtual void specialAttack(Character*); // utiliza skill - todos os outros iguais fazem o mesmo, mas a implementaçao da skill é diferente
+	void addPower(int); 
 	int getAttackPoints();
 	int getDefensePoints();
 };

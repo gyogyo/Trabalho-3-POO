@@ -18,7 +18,7 @@ class CharacterSelect
 {
 	private:
 		pair<Character*,bool> players[10];
-		int waveCounter;
+		int waveCounter; // conta quantas batalhas ja ocorreram
 	public:
 		CharacterSelect();
 		~CharacterSelect();

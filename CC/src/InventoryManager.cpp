@@ -7,7 +7,7 @@ InventoryManager::InventoryManager(Team* teamMngd)
 	player=NULL;
 }
 
-void InventoryManager::invManage()
+void InventoryManager::invManage() //a ideia eh simular uma maquina de estados
 {
 	int statusAux;
 	int itemAux, chosen;
@@ -16,7 +16,7 @@ void InventoryManager::invManage()
 	do{
 		switch(mode)
 		{
-			case 0: // escolhe o personagem
+			case 0: //escolhe personagem
 				cout << "\033[2J\033[1;1H";
 				cout << "Escolha qual personagem voce deseja editar:" << endl;
 				for(int i = 0 ; i < numchars ; i++)
@@ -69,7 +69,7 @@ void InventoryManager::invManage()
 					run=false;
 					break;
 				}
-			case 2:
+			case 2://modo de alteracao de status
 				cout << "\033[2J\033[1;1H";
 				player->PrintInfo();
 				cout << "Qual status deseja alterar?\n0 - Strength\n1 - Speed\n2 - Dexterity\n3 - Constitution\n4 - Cancelar\n\nEscolha: ";
@@ -148,7 +148,7 @@ void InventoryManager::invManage()
 					mode=1;
 					break;
 				}
-			case 3:
+			case 3://modo de editar o inventario
 				cout << "\033[2J\033[1;1H";
 				cout << "Inventario de " << player->getName() << ":" << endl;
 				player->PrintItemsInfo();

@@ -10,7 +10,7 @@ class Weapon : public Item {
 	public:
 	Weapon(string,double,int);
 	Weapon(Weapon&);
-	void use();
+	void use(); // weapon e armor tem use pois aparecem no inventário durante a batalha, embora nao tenha mesmo uma utilidade usa-las durante a luta
 	void equip();
 };
 

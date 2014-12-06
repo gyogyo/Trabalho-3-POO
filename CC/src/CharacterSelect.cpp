@@ -20,8 +20,7 @@ CharacterSelect::CharacterSelect()
 	players[8].first = new Paladin("Dycedarg",7,20,5,5,70);
 	players[9].first = new Paladin("Larkberg",4,25,5,15,55);
 
-	for(int i = 0; i < 10; i++) players[i].second = true;
-
+	for(int i = 0; i < 10; i++) players[i].second = true; // true = estao disponiveis
 	waveCounter = 0;
 
 }
@@ -35,12 +34,14 @@ void CharacterSelect::assembleTeam(Team* user)
 {
 	int Option;
 	int teamchars = user->getSize();
-	if(teamchars < 3) {
+	if(teamchars < 3) // max = 3 characters no Team
+	{
 		cout << "\033[2J\033[1;1H";
 		cout << "Escolha seus personagens dentre os abaixo:" << endl;
 		for(int i = 0 ; i < 10 ; i++)
 		{
-			if(players[i].second == true){
+			if(players[i].second == true) // se está disponível
+			{
 				cout << "\nOpção " << i << " --------------";
 				players[i].first->PrintInfo();
 				cout << endl;
@@ -75,7 +76,8 @@ void CharacterSelect::assembleTeam(Team* user)
 void CharacterSelect::assembleEnemies(Team* user)
 {
 	int teamchars = user->getSize();
-	if(teamchars < 3) {
+	if(teamchars < 3)
+	{
 		cout << "\033[2J\033[1;1H";
 		cout << "Preparando inimigos..." << endl;
 
@@ -86,23 +88,23 @@ void CharacterSelect::assembleEnemies(Team* user)
 		while(teamchars < 3)
 		{
 			rng = ((rand()/double(RAND_MAX))*5);
-			switch(rng){
-			case 0:
-				enemyChar = new Knight("Knight");
-				break;
-			case 1:
-				enemyChar = new Wizard("Wizard");
-				break;
-			case 2:
-				enemyChar = new Thief("Thief");
-				break;
-			case 3:
-				enemyChar = new Duelist("Duelist");
-				break;
-			case 4:
-				enemyChar = new Paladin("Paladin");
-				break;
-
+			switch(rng)
+			{
+				case 0:
+					enemyChar = new Knight("Knight");
+					break;
+				case 1:
+					enemyChar = new Wizard("Wizard");
+					break;
+				case 2:
+					enemyChar = new Thief("Thief");
+					break;
+				case 3:
+					enemyChar = new Duelist("Duelist");
+					break;
+				case 4:
+					enemyChar = new Paladin("Paladin");
+					break;
 			}
 
 			enemyChar->setStrenght(5*waveCounter,1);
