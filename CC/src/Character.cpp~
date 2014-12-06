@@ -80,6 +80,10 @@ int Character::getSkillCost(){
 	return skillcost;
 }
 
+int Character::getSkillPts(){
+	return skillpts;
+}
+
 //Setters
 void Character::addHP(int Amount){
 	if((HP+Amount)<0) HP = 0; //HP não negativo.
@@ -150,13 +154,17 @@ void Character::setStatus(int Which, bool Flag){ //Flag é um bool, Which é o b
 		status -= Which;
 }
 
+void Character::addSkillPts(int Amount){
+	skillpts += Amount;
+}
+
 void Character::PrintInfo(){ //Debug Print
 	string S = " "; //String Macro de espaco para escrever menos.
 	cout
-	<< "\nAlias: " << alias << endl
-	<< "HP:" << HP << "\nStr:" << strenght << "\nSpd:" << speed << "\nDex:" << dexterity << "\nCon:" << constitution << S << endl;
-	myitems.PrintInfo();
-	cout << "Atk: " << getAttackPoints() <<"\nDef:"<< getDefensePoints() << endl << endl;
+	<< "Nome: " << alias << endl
+	<< "HP: " << HP << "\nStr: " << strenght << "\nSpd: " << speed << "\nDex: " << dexterity << "\nCon: " << constitution << S << endl;
+	cout << "Atk: " << getAttackPoints() <<"\nDef: "<< getDefensePoints() << endl << endl;
+	cout << endl << "Pontos de status remanescentes: " << skillpts << endl;
 }
 
 void Character::PrintItemsInfo(){ //Debug Print
@@ -168,10 +176,19 @@ double Character::getTotalGold(){
 }
 
 void Character::spendGold(double a){
-	return myitems.spendGold(a);  
+	myitems.spendGold(a);  
+}
+
+void Character::earnGold(double a){
+	myitems.earnGold(a);  
+}
+
+int Character::size(){
+	return myitems.size();  
 }
 
 void Character::getItem(Item* New){
+	New->setOwner(this);
 	myitems.insertItem(New);  //Colocar um item no inventario.
 }
 
@@ -197,6 +214,16 @@ void Character::useItem(int Select){
 	Selected->use();
 }
 
+void Character::equipItem(int Select){
+	Item* Selected = myitems.searchItem(Select);
+	if(Selected==NULL) return; //Se esse item estiver no inventorio
+	Selected->equip();
+}
+
+double Character::removeItem(int Select){
+	return myitems.removeItem(Select);
+}
+
 //Em ambas as contas, os numeros fracionados foram simplificados como fator comum de 10.
 //Devido a fracoes, ha duas operacoes de truncamento que podem influenciar as contas finais.
 
@@ -210,6 +237,17 @@ int Character::getAttackPoints(){
 	return (int) (BaseAtk+myitems.itemAtkPts())/2;
 }
 
+
+void Character::block(bool Guard){
+	if(Guard) cout << alias << " assumed a defensive stance!" << endl;
+	else cout << alias << " has left his guard down!" << endl;
+	guard = Guard;
+}
+
+bool Character::isBlocking(){
+	return guard;
+}
+
 //O gerador de numeros aleatorios dessa funcao ja calcula em porcentagem. (De 0 a 100)
 //A escolha de evitar numeros fracionados foi feita para simplificacao.
 //A chance de ataque critico e 0.02 * (XP/2) = 0.01 * XP = XP%
@@ -221,18 +259,25 @@ void Character::attack(Character* Enemy){
 
 	int EnemyDodge = Enemy->getSpeed();
 
+	cout << alias << " attacks " << Enemy->getName() << "!" << endl;
+
 	for(int i = 0; i < atkspeed; i++){
-		RanNum = (rand()/double(RAND_MAX))*1000;
+		RanNum = (rand()/double(RAND_MAX))*100;
 		CritNum = (rand()/double(RAND_MAX))*100;
 		Damage = (int)((this->getAttackPoints()-Enemy->getDefensePoints()) + ((rand()%11) - 5));
 		if(Damage < 1) {Damage = 1;}
 		if(CritNum < (dexterity)) {Damage *= 2;}
-		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
-		cout << alias << " attacks " << Enemy->getName() << "! " << Damage << " damage!" << endl; //Debug Print
+		if(Enemy->isBlocking()) Damage /= 2;
+		if(RanNum > (accuracy - EnemyDodge)) {
+			Damage = 0;
+			cout << Enemy->getName() << " dodged!" << endl;
+			}
+		else cout << Damage << " damage!" << endl; //Debug Print
+		
 		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 		}
 
 	physiqueDown();
 }
 
-//void Character::specialAttack(Character* Target){cout << "Default Special??" << endl;}
+void Character::specialAttack(Character* Target){cout << "Default Special??" << endl;}

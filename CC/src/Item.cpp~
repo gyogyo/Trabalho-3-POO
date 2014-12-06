@@ -12,7 +12,6 @@ Item::Item(string Name, double Price, int Points){
 Item::Item(Item& Source){
 	this->name = Source.name;
 	this->price = Source.price;
-	this->points = Source.points;
 }
 
 //Setter

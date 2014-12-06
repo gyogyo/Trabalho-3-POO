@@ -6,84 +6,47 @@
 using namespace std;
 
 class Weapon : public Item {
+//Metodos
 	private:
-	string name;
-	double price;
-	int attack;
-	int range;
-	Character* owner;
-//Metodos
-	public:
-	Weapon(string,double,int,int,ItemBridge*);
-	Weapon(Weapon&);
-	void setOwner(Character*);
-	string getName();
-	double getPrice();
-	int getPoints();
-	Character* getOwner();
-	void use();
-};
+	bool equipped;
 
-class StandartWeapon : public ItemBridge {
-//Metodos
 	public:
+	Weapon(string,double,int);
+	Weapon(Weapon&);
 	void use();
+	void equip();
+	void unequip();
 };
 
 class Armor : public Item {
+//Metodos
 	private:
-	string name;
-	double price;
-	int defense;
-	int weight;
-	Character* owner;
-//Metodos
+	bool equipped;
+
 	public:
-	Armor(string,double,int,int,ItemBridge*);
-	Armor(Weapon&);
-	void setOwner(Character*);
-	string getName();
-	double getPrice();
-	int getPoints();
-	Character* getOwner();
+	Armor(string,double,int);
+	Armor(Armor&);
 	void use();
+	void equip();
+	void unequip();
 };
 
-class StandartArmor : public ItemBridge {
+class HealthPotion : public Item {
 //Metodos
 	public:
-	void use();
+	HealthPotion(string,double,int);
+	HealthPotion(HealthPotion&);
+	~HealthPotion();
+	virtual void use();
 };
 
-class Potion : public Item {
-	private:
-	string name;
-	double price;
-	int points;
-	Character* owner;
+class ManaPotion : public Item {
 //Metodos
 	public:
-	Potion(string,double,int,int,ItemBridge*);
-	Potion(Weapon&);
-	void setOwner(Character*);
-	string getName();
-	double getPrice();
-	int getPoints();
-	Character* getOwner();
-	void use();
+	ManaPotion(string,double,int);
+	ManaPotion(ManaPotion&);
+	~ManaPotion();
+	virtual void use();
 };
-
-class HealthPotion : public ItemBridge {
-//Metodos
-	public:
-	void use();
-};
-
-class Manapotion : public ItemBridge {
-//Metodos
-	public:
-	void use();
-};
-
 
 #endif

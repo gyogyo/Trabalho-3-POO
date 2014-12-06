@@ -7,7 +7,7 @@ using namespace std;
 
 Inventory::Inventory(){
 	spaces = 10;
-	gold = 0.0;
+	gold = 500.0;
 	armorequip = -1; //Nada equipado
 	weaponequip[0] = -1;
 	weaponequip[1] = -1;
@@ -38,6 +38,10 @@ void Inventory::spendGold(double Amount){
 
 void Inventory::earnGold(double Amount){
 	gold += Amount;
+}
+
+int Inventory::size(){
+	return items.size();
 }
 
 //Enquanto o atributo spaces indica o espaca disponivel, setSpaces(int) altera o espaco absoluto.
@@ -75,7 +79,7 @@ void Inventory::insertItem(Item* New){
 	if(spaces>0){
 		items.push_back(NewPair);
 		spaces--;
-		}
+	}
 }
 
 //Remove TODOS os items de mesmo nome.
@@ -91,11 +95,13 @@ void Inventory::removeItem(string Name){
 
 //Remove o item com a posicao absoluta.
 
-void Inventory::removeItem(int Num){
+double Inventory::removeItem(int Num){
+	double aux = get<0>(items[Num])->getPrice();
 	if(Num < items.size()){
 		items.erase(items.begin()+Num);
 		spaces++;
-		}
+	}
+	return aux;
 }
 
 //Retorna soma total de ataque.
@@ -103,9 +109,8 @@ void Inventory::removeItem(int Num){
 int Inventory::itemAtkPts(){
 	int InvSize = items.size();
 	int Total=0;
-	for(int i=0; i<InvSize; i++)
-		if(get<1>(items[i]))
-			Total += get<0>(items[i])->getPoints();
+	if(weaponequip[0]!=-1) Total += items[weaponequip[0]].first->getPoints();
+	if(weaponequip[1]!=-1) Total += items[weaponequip[1]].first->getPoints();
 	return Total;
 }
 
@@ -114,9 +119,7 @@ int Inventory::itemAtkPts(){
 int Inventory::itemDefPts(){
 	int InvSize = items.size();
 	int Total=0;
-	for(int i=0; i<InvSize; i++)
-		if(get<1>(items[i]))
-			Total += get<0>(items[i])->getPoints();
+	if(armorequip!=-1) Total += items[armorequip].first->getPoints();
 	return Total;
 }
 

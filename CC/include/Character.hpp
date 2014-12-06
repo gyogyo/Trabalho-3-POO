@@ -29,6 +29,8 @@ class Character {
 	int skillcost;
 	int skillpts;
 
+	bool guard;
+
 //Metodos
 	public:
 	Character(string);
@@ -55,6 +57,7 @@ class Character {
 	void physiqueUp();
 	void physiqueDown();
 	void setStatus(int,bool);
+	void addSkillPts(int);
 
 	//Funcao Debug
 	void PrintInfo();
@@ -75,6 +78,8 @@ class Character {
 	
 
 	//Calculo de batalha
+	void block(bool);
+	bool isBlocking();
 	virtual void attack(Character*);
 	virtual void specialAttack(Character*);
 	virtual int getDefensePoints();

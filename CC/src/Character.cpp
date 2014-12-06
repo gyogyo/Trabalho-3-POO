@@ -154,6 +154,10 @@ void Character::setStatus(int Which, bool Flag){ //Flag é um bool, Which é o b
 		status -= Which;
 }
 
+void Character::addSkillPts(int Amount){
+	skillpts += Amount;
+}
+
 void Character::PrintInfo(){ //Debug Print
 	string S = " "; //String Macro de espaco para escrever menos.
 	cout
@@ -233,6 +237,17 @@ int Character::getAttackPoints(){
 	return (int) (BaseAtk+myitems.itemAtkPts())/2;
 }
 
+
+void Character::block(bool Guard){
+	if(Guard) cout << alias << " assumed a defensive stance!" << endl;
+	else cout << alias << " has left his guard down!" << endl;
+	guard = Guard;
+}
+
+bool Character::isBlocking(){
+	return guard;
+}
+
 //O gerador de numeros aleatorios dessa funcao ja calcula em porcentagem. (De 0 a 100)
 //A escolha de evitar numeros fracionados foi feita para simplificacao.
 //A chance de ataque critico e 0.02 * (XP/2) = 0.01 * XP = XP%
@@ -242,16 +257,23 @@ int Character::getAttackPoints(){
 void Character::attack(Character* Enemy){
 	int RanNum, CritNum, Damage;
 
-	int EnemyDodge = Enemy->getSpeed();
+	int EnemyDodge = Enemy->getSpeed()/2;
+
+	cout << alias << " attacks " << Enemy->getName() << "!" << endl;
 
 	for(int i = 0; i < atkspeed; i++){
-		RanNum = (rand()/double(RAND_MAX))*1000;
+		RanNum = (rand()/double(RAND_MAX))*100;
 		CritNum = (rand()/double(RAND_MAX))*100;
 		Damage = (int)((this->getAttackPoints()-Enemy->getDefensePoints()) + ((rand()%11) - 5));
 		if(Damage < 1) {Damage = 1;}
 		if(CritNum < (dexterity)) {Damage *= 2;}
-		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
-		cout << alias << " attacks " << Enemy->getName() << "! " << Damage << " damage!" << endl; //Debug Print
+		if(Enemy->isBlocking()) Damage /= 2;
+		if(RanNum > (accuracy - EnemyDodge)) {
+			Damage = 0;
+			cout << Enemy->getName() << " dodged!" << endl;
+			}
+		else cout << Damage << " damage!" << endl; //Debug Print
+		
 		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 		}
 

@@ -55,70 +55,118 @@ void Team::fight(Team& EnemyTeam){
 	while(FightEnd == 0){
 		if(Turn == true){
 			cout << "\033[2J\033[1;1H";
-			cout << "Luka to Jojo no RPG:" << endl << endl << characters[0]->getName() <<": HP: "<< characters[0]->getHP() << " MP: "<< characters[0]->getMP() <<" 		vs 		MP: "<< EnemyTeam.characters[0]->getHP() << " HP: "<< EnemyTeam.characters[0]->getHP() <<"  :"<< EnemyTeam.characters[0]->getName() << "\n\nModes:\n0 - Attack\n1 - Skill\n2 - Defend\n3 - Psyche Up\n4 - Item" << endl;
-			cin >> Option;
-			while(Option<0||Option>4){
-				cout << "Opção Inválida. Escolha novamente.\nEscolha: " << endl;
-				cin >> Option;
+			cout << "Luka to Jojo no RPG:" << endl << endl << characters[0]->getName() <<": HP: "<< characters[0]->getHP() << " MP: "<< characters[0]->getMP() <<" 		vs 		MP: "<< EnemyTeam.characters[0]->getMP() << " HP: "<< EnemyTeam.characters[0]->getHP() <<"  :"<< EnemyTeam.characters[0]->getName() << "\n\nModes:\n0 - Attack\n1 - Skill\n2 - Defend\n3 - Psyche Up\n4 - Item\n5 - Analisar Inimigo" << endl;
+
+			if(characters[0]->isBlocking()) characters[0]->block(false);
+
+			if(characters[0]->getStatus() & Paralyze){
+				cout << characters[0]->getName() << " esta paralizado!" << endl;
+				characters[0]->setStatus(Paralyze,false);
 			}
-			switch(Option){
-			case 0:
-				characters[0]->attack(EnemyTeam.characters[0]);
-				break;
-			case 1:
-				if(characters[0]->getMP() > characters[0]->getSkillCost()){
-					cout << "spatk!" << endl;
-					characters[0]->specialAttack(EnemyTeam.characters[0]);
-					characters[0]->addMP(-characters[0]->getSkillCost());
-					}
-				else cout << "Nao ha MP disponivel para ataque especial!" << endl;
-				break;
-			case 2:
-			case 3:
-				characters[0]->physiqueUp();
-				break;
-			case 4:
-				cout << "Escolha um item usável\n-1 - Cancel" << endl;
-				characters[0]->PrintItemsInfo();
+
+			else {
 				cin >> Option;
-				if(Option!=-1){
-					characters[0]->useItem(Option);
+				while(Option<0||Option>5){
+					cout << "Opção Inválida. Escolha novamente.\nEscolha: " << endl;
+					cin >> Option;
 				}
-				break;
+				switch(Option){
+				case 0:
+					characters[0]->attack(EnemyTeam.characters[0]);
+					break;
+				case 1:
+					if(characters[0]->getMP() >= characters[0]->getSkillCost()){
+						characters[0]->specialAttack(EnemyTeam.characters[0]);
+						characters[0]->addMP(-characters[0]->getSkillCost());
+						}
+					else cout << "Nao ha MP disponivel para ataque especial!" << endl;
+					break;
+				case 2:
+					characters[0]->block(true);
+					break;
+				case 3:
+					characters[0]->physiqueUp();
+					break;
+				case 4:
+					cout << "Escolha um item usável\n-1 - Cancel" << endl;
+					characters[0]->PrintItemsInfo();
+					cin >> Option;
+					if(Option!=-1){
+						characters[0]->useItem(Option);
+					}
+					break;
+				case 5:
+					EnemyTeam.characters[0]->PrintInfo();
+					EnemyTeam.characters[0]->PrintItemsInfo();
+					break;
+				}
 			}
-		this_thread::sleep_for(std::chrono::milliseconds(5000));
-		Turn = false;
+
+			if(characters[0]->getStatus() & Poison){
+				cout << characters[0]->getName() << " perdeu vida por causa do veneno!" << endl;
+				characters[0]->addHP(-10);
+				if( (rand()/double(RAND_MAX)) < 25 ){
+					cout << characters[0]->getName() << " se curou do veneno!" << endl;
+					characters[0]->setStatus(Poison, false);
+				}
+			}
+
+			this_thread::sleep_for(std::chrono::milliseconds(5000));
+			Turn = false;
 		}
+
 		else{
 			cout << "\033[2J\033[1;1H";
 			cout << "Luka to Jojo no RPG:" << endl << endl << characters[0]->getName() <<": HP: "<< characters[0]->getHP() << " MP: "<< characters[0]->getMP() <<" 		vs 		MP: "<< EnemyTeam.characters[0]->getHP() << " HP: "<< EnemyTeam.characters[0]->getHP() <<"  :"<< EnemyTeam.characters[0]->getName() << "\n\nTurno inimigo!" << endl;
-			Option = ((rand()/double(RAND_MAX))*4);
-			switch(Option){
-			case 0:
-				EnemyTeam.characters[0]->attack(characters[0]);
-				break;
-			case 1:
-				if(EnemyTeam.characters[0]->getMP() > EnemyTeam.characters[0]->getSkillCost()){
-					EnemyTeam.characters[0]->specialAttack(characters[0]);
-					EnemyTeam.characters[0]->addMP(-EnemyTeam.characters[0]->getSkillCost());
-					}
-				else cout << "Nao ha MP disponivel para ataque especial!" << endl;
-				break;
-			case 2:
-			case 3:
-				EnemyTeam.characters[0]->physiqueUp();
-				break;
-			/*case 4:
-				cout << "Escolha um item usável\n-1 - Cancel" << endl;
-				characters[i]->PrintItemsInfo();
-				cin >> ItemOption;
-				if(ItemOption!=-1){
-					characters[i]->useItem(ItemOption);
-				}
-				break;*/
+
+			if(EnemyTeam.characters[0]->isBlocking()) EnemyTeam.characters[0]->block(false);
+
+			if(EnemyTeam.characters[0]->getStatus() & Paralyze){
+				cout << EnemyTeam.characters[0]->getName() << " esta paralizado!" << endl;
+				EnemyTeam.characters[0]->setStatus(Paralyze,false);
 			}
-		this_thread::sleep_for(std::chrono::milliseconds(5000));
-		Turn = true;
+
+			else{
+				Option = (int) ((rand()/double(RAND_MAX))*4);
+				switch(Option){
+					case 0:
+						EnemyTeam.characters[0]->attack(characters[0]);
+						break;
+					case 1:
+						if(EnemyTeam.characters[0]->getMP() >= EnemyTeam.characters[0]->getSkillCost()){
+							EnemyTeam.characters[0]->specialAttack(characters[0]);
+							EnemyTeam.characters[0]->addMP(-EnemyTeam.characters[0]->getSkillCost());
+							}
+						else cout << "Nao ha MP disponivel para ataque especial!" << endl;
+						break;
+					case 2:
+						EnemyTeam.characters[0]->block(true);
+						break;
+					case 3:
+						EnemyTeam.characters[0]->physiqueUp();
+						break;
+					/*case 4:
+						cout << "Escolha um item usável\n-1 - Cancel" << endl;
+						characters[i]->PrintItemsInfo();
+						cin >> ItemOption;
+						if(ItemOption!=-1){
+							characters[i]->useItem(ItemOption);
+						}
+						break;*/
+				}
+			}
+
+			if(EnemyTeam.characters[0]->getStatus() & Poison){
+				cout << EnemyTeam.characters[0]->getName() << " perdeu vida por causa do veneno!" << endl;
+				EnemyTeam.characters[0]->addHP(-10);
+				if( (rand()/double(RAND_MAX))*100 < 25 ){
+					cout << EnemyTeam.characters[0]->getName() << " se curou do veneno!" << endl;
+					EnemyTeam.characters[0]->setStatus(Poison, false);
+				}
+			}
+
+			this_thread::sleep_for(std::chrono::milliseconds(5000));
+			Turn = true;
 		}
 	
 		if(EnemyTeam.characters[0]->getHP() == 0) {
@@ -137,8 +185,11 @@ void Team::fight(Team& EnemyTeam){
 	}
 
 	if(FightEnd == 1){
-		cout << "Vitoria! Voce ganha 200 gold para cada personagem!" << endl;
-		for(int i = 0; i < getSize(); i++) characters[i]->spendGold(-200);
+		cout << "Vitoria! Voce ganha 200 gold e 10 pontos para cada personagem!" << endl;
+		for(int i = 0; i < getSize(); i++){
+			characters[i]->spendGold(-200);
+			characters[i]->addSkillPts(10);
+		}
 		this_thread::sleep_for(std::chrono::milliseconds(5000));
 		win += 1;
 		EnemyTeam.lose += 1;

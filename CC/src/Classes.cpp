@@ -38,17 +38,18 @@ int Knight::getAttackPoints(){
 void Knight::specialAttack(Character* Enemy){ //Sol
 	int RanNum, CritNum, Damage;
 
-	int EnemyDodge = Enemy->getSpeed();
+	int EnemyDodge = Enemy->getSpeed()/2;
 
 	cout << getName() << " attempts a Sol Slash on " << Enemy->getName() << "!" << endl;
 
 	for(int i = 0; i < atkspeed; i++){
-		RanNum = (rand()/double(RAND_MAX))*1000;
+		RanNum = (rand()/double(RAND_MAX))*100;
 		CritNum = (rand()/double(RAND_MAX))*100;
 		Damage = (int)((this->getAttackPoints()-Enemy->getDefensePoints()) + ((rand()%11) - 5) + power);
 		if(Damage < 1) {Damage = 1;}
 		if(CritNum < (dexterity)) {Damage *= 2;}
 		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
+		if(Enemy->isBlocking()) Damage /= 2;
 		cout << Damage << " damage!" << endl;
 		cout << getName() << " recovers " << Damage/2 << " HP!" << endl;
 		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
@@ -95,16 +96,19 @@ int Wizard::getAttackPoints(){
 void Wizard::specialAttack(Character* Enemy){ //Thunder Jolt
 	int RanNum, CritNum, StatusNum, Damage;
 
-	int EnemyDodge = Enemy->getSpeed();
+	int EnemyDodge = Enemy->getSpeed()/2;
+
+	cout << getName() << " fires a Thunder Jolt at " << Enemy->getName() << "!" << endl;
 
 	for(int i = 0; i < atkspeed; i++){
-		RanNum = (rand()/double(RAND_MAX))*1000;
+		RanNum = (rand()/double(RAND_MAX))*100;
 		CritNum = (rand()/double(RAND_MAX))*100;
 		StatusNum = (rand()/double(RAND_MAX))*100;
 		Damage = (int)(wisdom*3);
 		if(CritNum < 15) {Damage *= 2;}
 		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
-		cout << getName() << " fires a Thunder Jolt at " << Enemy->getName() << " ! " << Damage << " damage!" << endl;
+		if(Enemy->isBlocking()) Damage /= 2;
+		cout << Damage << " damage!" << endl;
 		if(StatusNum < 50) {
 			Enemy->setStatus(Paralyze, true);
 			cout << Enemy->getName() << " has become paralyzed!" << endl;
@@ -149,27 +153,23 @@ int Thief::getAttackPoints(){
 void Thief::specialAttack(Character* Enemy){ //Venom Strike
 	int RanNum, CritNum, Damage;
 
-	int EnemyDodge = Enemy->getSpeed();
+	RanNum = (rand()/double(RAND_MAX))*100;
+	CritNum = (rand()/double(RAND_MAX))*100;
+	cout << getName() << " poisons " << Enemy->getName() << "!" << endl;
 
-	for(int i = 0; i < atkspeed; i++){
-		RanNum = (rand()/double(RAND_MAX))*100;
-		CritNum = (rand()/double(RAND_MAX))*100;
-		cout << getName() << " poisons " << Enemy->getName() << "!";
+	if(RanNum > 10*stealth) {
+		cout << "But " << Enemy->getName() << " dodged!" << endl;
+	}
 
-		if(RanNum > 10*stealth) {
-			cout << "But " << Enemy->getName() << " dodged!";
-		}
-
-		else{
-			Enemy->setStatus(Poison,true);
-			if(CritNum < 25) {
-				Damage = 10;
-				cout << "The slash inflicts " << Damage << " points of damage!";
-			}
+	else{
+		Enemy->setStatus(Poison,true);
+		if(CritNum < 25) {
+			Damage = 10;
+			cout << "The slash inflicts " << Damage << " points of damage!" << endl;
 			Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 		}
-
 	}
+
 }
 
 //
@@ -208,17 +208,18 @@ int Duelist::getAttackPoints(){
 void Duelist::specialAttack(Character* Enemy){ //Astra
 	int RanNum, CritNum, Damage;
 
-	int EnemyDodge = Enemy->getSpeed();
+	int EnemyDodge = Enemy->getSpeed()/2;
 
 	cout << getName() << " activates Astra Strike!" << endl;
 
 	for(int i = 0; i < 5; i++){
-		RanNum = (rand()/double(RAND_MAX))*1000;
+		RanNum = (rand()/double(RAND_MAX))*100;
 		CritNum = (rand()/double(RAND_MAX))*100;
 		Damage = (int)((this->getAttackPoints()-Enemy->getDefensePoints()) + ((rand()%11) - 5));
 		if(Damage < 1) {Damage = 1;}
 		if(CritNum < (dexterity)) {Damage *= 2;}
 		if(RanNum > (accuracy - EnemyDodge - 10)) {Damage = 0;}
+		if(Enemy->isBlocking()) Damage /= 2;
 		cout << Enemy->getName() << " takes " << Damage << " damage!" << endl; //Debug Print
 		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 		}
@@ -260,18 +261,17 @@ int Paladin::getAttackPoints(){
 
 void Paladin::specialAttack(Character* Enemy){ //Holy Retribution
 	int Damage;
-	for(int i = 0; i < atkspeed; i++){
-		Damage = holy*2;
-		if(status & 1) {
-			setStatus(Poison,0);
-			Damage *= 2;
-			}
-		if(status & 2) {
-			setStatus(Paralyze,0);
-			Damage *= 2;
-			}
-		cout << getName() << " retributes his status towards " << Enemy->getName() << " dealing " << Damage << " damage!" << endl;
-		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
+
+	Damage = holy*2;
+	if(status & 1) {
+		setStatus(Poison,0);
+		Damage *= 2;
 		}
+	if(status & 2) {
+		setStatus(Paralyze,0);
+		Damage *= 2;
+		}
+	cout << getName() << " retributes his status towards " << Enemy->getName() << " dealing " << Damage << " damage!" << endl;
+	Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 }
 
