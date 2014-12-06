@@ -33,12 +33,14 @@ class Character {
 	Character(string);
 	Character(string,int,int,int,int);
 	void randomGenerate();
+	virtual Character* clone();
 	//Getters
 	string getName();
 	int getHP();
 	int getMP();
 	int getSpeed();
 	int getStatus();
+	int getSkillCost();
 
 	//Setters
 	void setStrenght(int, bool);
@@ -67,7 +69,7 @@ class Character {
 
 	//Calculo de batalha
 	virtual void attack(Character*);
-	virtual void specialAttack(Character*);
+	virtual void specialAttack(Character*)=0;
 	virtual int getDefensePoints();
 	virtual int getAttackPoints();
 

@@ -15,6 +15,11 @@ Knight::Knight(string Name, int Power, int Strength, int Speed, int Dexterity, i
 	power = Power;
 }
 
+Character* Knight::clone(){
+	Character* clone = new Knight(alias,power,strenght,speed,dexterity,constitution);
+	return clone;
+}
+
 void Knight::addPower(int Amount){
 	if((power+Amount)>99) power = 100;
 	else power += Amount;
@@ -35,6 +40,8 @@ void Knight::specialAttack(Character* Enemy){ //Sol
 
 	int EnemyDodge = Enemy->getSpeed();
 
+	cout << getName() << " attempts a Sol Slash on " << Enemy->getName() << "!" << endl;
+
 	for(int i = 0; i < atkspeed; i++){
 		RanNum = (rand()/double(RAND_MAX))*1000;
 		CritNum = (rand()/double(RAND_MAX))*100;
@@ -42,7 +49,8 @@ void Knight::specialAttack(Character* Enemy){ //Sol
 		if(Damage < 1) {Damage = 1;}
 		if(CritNum < (dexterity)) {Damage *= 2;}
 		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
+		cout << Damage << " damage!" << endl;
+		cout << getName() << " recovers " << Damage/2 << " HP!" << endl;
 		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 		addHP(Damage/2); //Suga vida
 		}
@@ -62,6 +70,11 @@ Wizard::Wizard(string Name, int Wisdom, int Strength, int Speed, int Dexterity, 
 	accuracy=90;
 	wisdom = Wisdom;
 	skillcost = 25;
+}
+
+Character* Wizard::clone(){
+	Character* clone = new Wizard(alias,wisdom,strenght,speed,dexterity,constitution);
+	return clone;
 }
 
 void Wizard::addWisdom(int Amount){
@@ -90,9 +103,12 @@ void Wizard::specialAttack(Character* Enemy){ //Thunder Jolt
 		StatusNum = (rand()/double(RAND_MAX))*100;
 		Damage = (int)(wisdom*3);
 		if(CritNum < 15) {Damage *= 2;}
-		if(StatusNum < 50) {Enemy->setStatus(Paralyze, true);}
 		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
+		cout << getName() << " fires a Thunder Jolt at " << Enemy->getName() << " ! " << Damage << " damage!" << endl;
+		if(StatusNum < 50) {
+			Enemy->setStatus(Paralyze, true);
+			cout << Enemy->getName() << " has become paralyzed!" << endl;
+		}
 		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 		}
 }
@@ -109,6 +125,11 @@ Thief::Thief(string Name, int Stealth, int Strength, int Speed, int Dexterity, i
 	accuracy=70;
 	stealth = Stealth;
 	skillcost = 10;
+}
+
+Character* Thief::clone(){
+	Character* clone = new Thief(alias,stealth,strenght,speed,dexterity,constitution);
+	return clone;
 }
 
 void Thief::addStealth(int Amount){
@@ -131,14 +152,24 @@ void Thief::specialAttack(Character* Enemy){ //Venom Strike
 	int EnemyDodge = Enemy->getSpeed();
 
 	for(int i = 0; i < atkspeed; i++){
-		RanNum = (rand()/double(RAND_MAX))*1000;
+		RanNum = (rand()/double(RAND_MAX))*100;
 		CritNum = (rand()/double(RAND_MAX))*100;
-		if(CritNum < 25) {Damage = 10;}
-		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
-		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
-		Enemy->setStatus(Poison,true);
+		cout << getName() << " poisons " << Enemy->getName() << "!";
+
+		if(RanNum > 10*stealth) {
+			cout << "But " << Enemy->getName() << " dodged!";
 		}
+
+		else{
+			Enemy->setStatus(Poison,true);
+			if(CritNum < 25) {
+				Damage = 10;
+				cout << "The slash inflicts " << Damage << " points of damage!";
+			}
+			Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
+		}
+
+	}
 }
 
 //
@@ -155,6 +186,10 @@ Duelist::Duelist(string Name, int Proficiency, int Strength, int Speed, int Dext
 	skillcost = 33;
 }
 
+Character* Duelist::clone(){
+	Character* clone = new Duelist(alias,proficiency,strenght,speed,dexterity,constitution);
+	return clone;
+}
 
 void Duelist::addProficiency(int Amount){
 	if((proficiency+Amount)>99) proficiency = 100;
@@ -175,6 +210,8 @@ void Duelist::specialAttack(Character* Enemy){ //Astra
 
 	int EnemyDodge = Enemy->getSpeed();
 
+	cout << getName() << " activates Astra Strike!" << endl;
+
 	for(int i = 0; i < 5; i++){
 		RanNum = (rand()/double(RAND_MAX))*1000;
 		CritNum = (rand()/double(RAND_MAX))*100;
@@ -182,7 +219,7 @@ void Duelist::specialAttack(Character* Enemy){ //Astra
 		if(Damage < 1) {Damage = 1;}
 		if(CritNum < (dexterity)) {Damage *= 2;}
 		if(RanNum > (accuracy - EnemyDodge - 10)) {Damage = 0;}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
+		cout << Enemy->getName() << " takes " << Damage << " damage!" << endl; //Debug Print
 		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 		}
 }
@@ -191,14 +228,19 @@ void Duelist::specialAttack(Character* Enemy){ //Astra
 
 Paladin::Paladin(string Name) : Character(Name){
 	holy = (rand()/double(RAND_MAX))*6;
-	skillcost = 5;
+	skillcost = 15;
 }
 
 Paladin::Paladin(string Name, int Holy, int Strength, int Speed, int Dexterity, int Constitution) : Character(Name,Strength,Speed,Dexterity,Constitution){
 	atkspeed=1;
 	accuracy=80;
 	holy = Holy;
-	skillcost = 5;
+	skillcost = 15;
+}
+
+Character* Paladin::clone(){
+	Character* clone = new Paladin(alias,holy,strenght,speed,dexterity,constitution);
+	return clone;
 }
 
 void Paladin::addHoly(int Amount){
@@ -228,7 +270,7 @@ void Paladin::specialAttack(Character* Enemy){ //Holy Retribution
 			setStatus(Paralyze,0);
 			Damage *= 2;
 			}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
+		cout << getName() << " retributes his status towards " << Enemy->getName() << " dealing " << Damage << " damage!" << endl;
 		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 		}
 }

@@ -55,7 +55,7 @@ void Team::fight(Team& EnemyTeam){
 	while(FightEnd == 0){
 		if(Turn == true){
 			cout << "\033[2J\033[1;1H";
-			cout << "Luka to Jojo no RPG:" << endl << endl << characters[0]->getName() <<": HP: "<< characters[0]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[0]->getHP() <<"  :"<< EnemyTeam.characters[0]->getName() <<" \n\nModes:\n0 - Attack\n1 - Skill\n2 - Defend\n3 - Psyche Up\n4 - Item" << endl;
+			cout << "Luka to Jojo no RPG:" << endl << endl << characters[0]->getName() <<": HP: "<< characters[0]->getHP() << " MP: "<< characters[0]->getMP() <<" 		vs 		MP: "<< EnemyTeam.characters[0]->getHP() << " HP: "<< EnemyTeam.characters[0]->getHP() <<"  :"<< EnemyTeam.characters[0]->getName() << "\n\nModes:\n0 - Attack\n1 - Skill\n2 - Defend\n3 - Psyche Up\n4 - Item" << endl;
 			cin >> Option;
 			while(Option<0||Option>4){
 				cout << "Opção Inválida. Escolha novamente.\nEscolha: " << endl;
@@ -85,12 +85,12 @@ void Team::fight(Team& EnemyTeam){
 				}
 				break;
 			}
-		this_thread::sleep_for(std::chrono::milliseconds(1000));
+		this_thread::sleep_for(std::chrono::milliseconds(5000));
 		Turn = false;
 		}
 		else{
 			cout << "\033[2J\033[1;1H";
-			cout << "Luka to Jojo no RPG:" << endl << endl << characters[0]->getName() <<": HP: "<< characters[0]->getHP() <<" 		vs 		HP: "<< EnemyTeam.characters[0]->getHP() <<"  :"<< EnemyTeam.characters[0]->getName() <<" \n\nModes:\n0 - Attack\n1 - Skill\n2 - Defend\n3 - Psyche Up\n4 - Item" << endl;
+			cout << "Luka to Jojo no RPG:" << endl << endl << characters[0]->getName() <<": HP: "<< characters[0]->getHP() << " MP: "<< characters[0]->getMP() <<" 		vs 		MP: "<< EnemyTeam.characters[0]->getHP() << " HP: "<< EnemyTeam.characters[0]->getHP() <<"  :"<< EnemyTeam.characters[0]->getName() << "\n\nTurno inimigo!" << endl;
 			Option = ((rand()/double(RAND_MAX))*4);
 			switch(Option){
 			case 0:
@@ -116,7 +116,7 @@ void Team::fight(Team& EnemyTeam){
 				}
 				break;*/
 			}
-		this_thread::sleep_for(std::chrono::milliseconds(1000));
+		this_thread::sleep_for(std::chrono::milliseconds(5000));
 		Turn = true;
 		}
 	

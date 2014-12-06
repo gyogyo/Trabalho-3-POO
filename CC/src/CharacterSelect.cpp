@@ -58,7 +58,7 @@ void CharacterSelect::assembleTeam(Team* user)
 			}
 			players[Option].second = false;
 			cout << players[Option].first->getName() << " escolhido!" << endl;
-			user->addChar(new Character(*players[Option].first));
+			user->addChar(players[Option].first->clone());
 			teamchars++;
 		}
 		this_thread::sleep_for(std::chrono::milliseconds(700));

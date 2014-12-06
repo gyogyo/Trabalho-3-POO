@@ -33,6 +33,7 @@ class Character {
 	Character(string);
 	Character(string,int,int,int,int);
 	void randomGenerate();
+	virtual Character* clone();
 	//Getters
 	string getName();
 	int getHP();

@@ -13,15 +13,14 @@ class Knight : public Character {
 	int power;
 
 //Metodos
-
-	int getAttackPoints();
-	int getDefensePoints();
-
 	public:
 	Knight(string);
 	Knight(string, int, int, int, int, int);
-	void specialAttack(Character*);
+	Character* clone();
+	virtual void specialAttack(Character*);
 	void addPower(int);
+	int getAttackPoints();
+	int getDefensePoints();
 };
 
 class Wizard : public Character {      
@@ -31,15 +30,14 @@ class Wizard : public Character {
 	int wisdom;
 
 //Metodos
-
-	int getAttackPoints();
-	int getDefensePoints();
-
 	public:
 	Wizard(string);
 	Wizard(string, int, int, int, int, int);
-	void specialAttack(Character*);
+	Character* clone();
+	virtual void specialAttack(Character*);
 	void addWisdom(int);
+	int getAttackPoints();
+	int getDefensePoints();
 };
 
 class Thief : public Character {      
@@ -49,15 +47,14 @@ class Thief : public Character {
 	int stealth;
 
 //Metodos
-
-	int getAttackPoints();
-	int getDefensePoints();
-
 	public:
 	Thief(string);
 	Thief(string, int, int, int, int, int);
-	void specialAttack(Character*);
+	Character* clone();
+	virtual void specialAttack(Character*);
 	void addStealth(int);
+	int getAttackPoints();
+	int getDefensePoints();
 };
 
 class Duelist : public Character {      
@@ -67,15 +64,14 @@ class Duelist : public Character {
 	int proficiency;
 
 //Metodos
-
-	int getAttackPoints();
-	int getDefensePoints();
-
 	public:
 	Duelist(string);
 	Duelist(string, int, int, int, int, int);
-	void specialAttack(Character*);
+	Character* clone();
+	virtual void specialAttack(Character*);
 	void addProficiency(int);
+	int getAttackPoints();
+	int getDefensePoints();
 };
 
 class Paladin : public Character {      
@@ -85,14 +81,13 @@ class Paladin : public Character {
 	int holy;
 
 //Metodos
-
-	int getAttackPoints();
-	int getDefensePoints();
-
 	public:
 	Paladin(string);
 	Paladin(string, int, int, int, int, int);
-	void specialAttack(Character*);
+	Character* clone();
+	virtual void specialAttack(Character*);
 	void addHoly(int);
+	int getAttackPoints();
+	int getDefensePoints();
 };
 #endif

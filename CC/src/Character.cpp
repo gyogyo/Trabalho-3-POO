@@ -19,6 +19,11 @@ Character::Character(string Name){
 
 Character::Character(string Name,int Strength,int Speed,int Dexterity,int Constitution){
 	alias=Name;
+	HP = 100;
+	MP = 100;
+	willpower=1;
+	status = 0;
+	skillcost = 0;
 	strenght = Strength;
 	basespeed = speed = Speed;
 	dexterity  = Dexterity;
@@ -44,6 +49,11 @@ void Character::randomGenerate(){
 
 }
 
+Character* Character::clone(){
+	Character* clone = new Character(alias,strenght,speed,dexterity,constitution);
+	return clone;
+}
+
 //Getters
 
 string Character::getName(){
@@ -60,6 +70,14 @@ int Character::getMP(){
 
 int Character::getSpeed(){
 	return speed;
+}
+
+int Character::getStatus(){
+	return status;
+}
+
+int Character::getSkillCost(){
+	return skillcost;
 }
 
 //Setters
@@ -107,10 +125,18 @@ void Character::setAttackSpeed(int Amount){
 
 
 void Character::physiqueUp(){
-	if(willpower==1)
+	if(willpower==1){
 		willpower=2;
-	else if(willpower==2)
+		cout << alias << " gathers strenght! " << willpower << " units of power boost!" << endl;
+	}
+
+	else if(willpower==2){
 		willpower=5;
+		cout << alias << " gathers strenght! " << willpower << " units of power boost!" << endl;
+	}
+	else{
+		cout << alias << " tries to gather strenght, but fails!" << endl;
+	}
 }
 
 void Character::physiqueDown(){
@@ -202,11 +228,11 @@ void Character::attack(Character* Enemy){
 		if(Damage < 1) {Damage = 1;}
 		if(CritNum < (dexterity)) {Damage *= 2;}
 		if(RanNum > (accuracy - EnemyDodge)) {Damage = 0;}
-		//cout << alias << " attacks " << Enemy->getName() << " ! " << Damage << " damage!" << endl; //Debug Print
+		cout << alias << " attacks " << Enemy->getName() << "! " << Damage << " damage!" << endl; //Debug Print
 		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 		}
 
 	physiqueDown();
 }
 
-void Character::specialAttack(Character* Target){}
+void Character::specialAttack(Character* Target){cout << "Default Special??" << endl;}

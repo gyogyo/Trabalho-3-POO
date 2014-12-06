@@ -58,7 +58,7 @@ void CharacterSelect::assembleTeam(Team* user)
 			}
 			players[Option].second = false;
 			cout << players[Option].first->getName() << " escolhido!" << endl;
-			user->addChar(new Character(*players[Option].first));
+			user->addChar(players[Option].first.clone());
 			teamchars++;
 		}
 		this_thread::sleep_for(std::chrono::milliseconds(700));
@@ -86,7 +86,7 @@ void CharacterSelect::assembleEnemies(Team* user)
 			rng = ((rand()/double(RAND_MAX))*5);
 			switch(rng){
 			case 0:
-				enemyChar = new Warrior("Warrior");
+				enemyChar = new Knight("Knight");
 				break;
 			case 1:
 				enemyChar = new Wizard("Wizard");
