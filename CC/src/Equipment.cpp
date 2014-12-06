@@ -49,6 +49,7 @@ HealthPotion::HealthPotion(HealthPotion& Source) : Item(Source){}
 
 void HealthPotion::use(){
 	getOwner()->addHP(getPoints());
+	getOwner()->removeItem(((Item*)this));
 }
 
 //Mana Potion
@@ -62,4 +63,5 @@ ManaPotion::ManaPotion(ManaPotion& Source) : Item(Source){}
 
 void ManaPotion::use(){
 	getOwner()->addMP(getPoints());
+	getOwner()->removeItem(((Item*)this));
 }

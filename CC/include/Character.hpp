@@ -71,10 +71,11 @@ class Character {
 	void earnGold(double);
 	void equipWeapon(Item*);
 	void equipArmor(Item*);
-	void useItem(Item*);
-	void useItem(int);
+	template<typename T>
+	void useItem(T);
 	void equipItem(int);
-	double removeItem(int);
+	template<typename T>
+	double removeItem(T);
 	
 
 	//Calculo de batalha

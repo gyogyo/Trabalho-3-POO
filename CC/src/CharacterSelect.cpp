@@ -64,9 +64,11 @@ void CharacterSelect::assembleTeam(Team* user)
 		this_thread::sleep_for(std::chrono::milliseconds(700));
 		cout << "\033[2J\033[1;1H";
 	}
-	else {
+	else
+	{
 		cout << "\033[2J\033[1;1H";
 		cout << "A sua equipe ja esta com o limite de personagens." << endl;
+		this_thread::sleep_for(std::chrono::milliseconds(2000));
 	}
 }
 

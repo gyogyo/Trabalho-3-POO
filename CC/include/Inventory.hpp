@@ -7,7 +7,6 @@
 #include <Item.hpp>
 
 using namespace std;
-
 class Inventory {   
 //Atributos
 	private:
@@ -38,15 +37,15 @@ class Inventory {
 
 	//Operacoes com items
 	//Retorna UM item com o devido nome.
-	Item* searchItem(string);
+	template <typename T>
+	Item* searchItem(T);
 	//Retorno de posicao absoluta.
-	Item* searchItem(int);
 	//Insercao ao final do inventario.
 	void insertItem(Item*);
-	//Remove TODOS os items de mesmo nome.
-	void removeItem(string);
-	//Remove o item com a posicao absoluta.
-	double removeItem(int);
+	//Remove o item e retorna o preço do mesmo
+	template <typename T>
+	double removeItem(T);
+
 
 	//Retorna soma total de ataque.
 	int itemAtkPts();

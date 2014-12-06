@@ -14,7 +14,8 @@ Inventory::Inventory(){
 	items = vector<pair<Item*, bool>> (0);
 }
 
-Inventory::~Inventory(){
+Inventory::~Inventory()
+{
 	int InvSize = items.size();
 	for(int i=0; i<InvSize; i++) delete items[i].first;
 	items.clear(); //Limpar a lista assim que for destruido.
@@ -22,11 +23,13 @@ Inventory::~Inventory(){
 
 //Getters
 
-double Inventory::getTotalGold(){
+double Inventory::getTotalGold()
+{
 	return gold;
 }
 
-int Inventory::getAvailableSpace(){
+int Inventory::getAvailableSpace()
+{
 	return (items.size())-(items.capacity()); //Retorna espacos vazios no vector.
 }
 
@@ -56,8 +59,8 @@ void Inventory::setSpaces(int Amount){
 
 //Operacoes com items
 //Retorna UM item com o devido nome.
-
-Item* Inventory::searchItem(string Name){
+template<>
+Item* Inventory::searchItem<string>(string Name){
 	int InvSize = items.size();
 	for(int i=0; i<InvSize; i++)
 		if(get<0>(items[i])->getName()==Name)
@@ -66,37 +69,69 @@ Item* Inventory::searchItem(string Name){
 }
 
 //Retorno de posicao absoluta.
-
-Item* Inventory::searchItem(int Num){
-	if(Num < items.size()) return get<0>(items[Num]);
+template<>
+Item* Inventory::searchItem<int>(int Num)
+{
+	if(Num < items.size())
+	{
+		return get<0>(items[Num]);
+	}
 	return NULL;
 }
 
 //Insercao ao final do inventario.
 
-void Inventory::insertItem(Item* New){
+void Inventory::insertItem(Item* New)
+{
 	pair<Item*,bool> NewPair (New, false); //Item inicializado como desequipado.
-	if(spaces>0){
+	if(spaces>0)
+	{
 		items.push_back(NewPair);
 		spaces--;
 	}
 }
 
 //Remove TODOS os items de mesmo nome.
-
-void Inventory::removeItem(string Name){
+template<>
+double Inventory::removeItem<string>(string Name){
+	double aux=0;
 	int InvSize = items.size();
 	for(int i=0; i<InvSize; i++)
-		if(get<0>(items[i])->getName()==Name){
+	{
+		if(get<0>(items[i])->getName()==Name)
+		{
+			aux=get<0>(items[i])->getPrice();
 			items.erase(items.begin()+i);
 			spaces++;
-			}
+		}
+	}
+	return aux;
 }
 
 //Remove o item com a posicao absoluta.
-
-double Inventory::removeItem(int Num){
+template<>
+double Inventory::removeItem<int>(int Num){
 	double aux = get<0>(items[Num])->getPrice();
+	if(weaponequip[0]==Num)
+	{
+		if(weaponequip[1]!=-1)
+		{
+			weaponequip[0]=weaponequip[1];
+			weaponequip[1]=-1;
+		}
+		else
+		{
+			weaponequip[0]=-1;
+		}
+	}
+	else if(weaponequip[1]==Num)
+	{
+		weaponequip[1]=-1;
+	}
+	else if(armorequip==Num)
+	{
+		armorequip=-1;
+	}
 	if(Num < items.size()){
 		items.erase(items.begin()+Num);
 		spaces++;

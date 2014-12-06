@@ -139,7 +139,7 @@ void Character::physiqueUp(){
 		cout << alias << " gathers strenght! " << willpower << " units of power boost!" << endl;
 	}
 	else{
-		cout << alias << " tries to gather strenght, but fails!" << endl;
+		cout << alias << " tries to gather strenght, but fails!" << endl << alias << "is already at max power!" <<endl;
 	}
 }
 
@@ -203,12 +203,14 @@ void Character::equipArmor(Item* Select){
 	myitems.equipArmor(Select->getName());
 }
 
-void Character::useItem(Item* Use){
+template<>
+void Character::useItem<Item*>(Item* Use){
 	if(myitems.searchItem(Use->getName())==NULL) return; //Se esse item estiver no inventorio
 	Use->use();
 }
 
-void Character::useItem(int Select){
+template<>
+void Character::useItem<int>(int Select){
 	Item* Selected = myitems.searchItem(Select);
 	if(Selected==NULL) return; //Se esse item estiver no inventorio
 	Selected->use();
@@ -220,8 +222,14 @@ void Character::equipItem(int Select){
 	Selected->equip();
 }
 
-double Character::removeItem(int Select){
+template<>
+double Character::removeItem<int>(int Select){
 	return myitems.removeItem(Select);
+}
+
+template<>
+double Character::removeItem<Item*>(Item* Select){
+	return myitems.removeItem(Select->getName());
 }
 
 //Em ambas as contas, os numeros fracionados foram simplificados como fator comum de 10.
@@ -261,21 +269,25 @@ void Character::attack(Character* Enemy){
 
 	cout << alias << " attacks " << Enemy->getName() << "!" << endl;
 
-	for(int i = 0; i < atkspeed; i++){
+	for(int i = 0; i < atkspeed; i++)
+	{
 		RanNum = (rand()/double(RAND_MAX))*100;
 		CritNum = (rand()/double(RAND_MAX))*100;
 		Damage = (int)((this->getAttackPoints()-Enemy->getDefensePoints()) + ((rand()%11) - 5));
 		if(Damage < 1) {Damage = 1;}
 		if(CritNum < (dexterity)) {Damage *= 2;}
 		if(Enemy->isBlocking()) Damage /= 2;
-		if(RanNum > (accuracy - EnemyDodge)) {
+		if(RanNum > (accuracy - EnemyDodge))
+		{
 			Damage = 0;
 			cout << Enemy->getName() << " dodged!" << endl;
-			}
-		else cout << Damage << " damage!" << endl; //Debug Print
-		
-		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
 		}
+		else
+		{
+			cout << Damage << " damage!" << endl; //Debug Print
+		}
+		Enemy->addHP(-Damage); //Tirar o dano da vida do oponente.
+	}
 
 	physiqueDown();
 }
