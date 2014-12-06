@@ -1,7 +1,7 @@
 headerpath = include/
 objpath = obj/
 sourcepath = src/
-OBJ = Character.o Inventory.o Item.o Team.o Equipment.o Classes.o CharacterSelect.o
+OBJ = Character.o Inventory.o Item.o Team.o Equipment.o Classes.o CharacterSelect.o Loja.o InventoryManager.o
 FILE = Prat3
 LFLAGS = -lm
 
@@ -24,6 +24,8 @@ Loja.o:
 	g++ -std=c++11 -c $(sourcepath)Loja.cpp -I $(headerpath) -o $(objpath)Loja.o $(LFLAGS)
 CharacterSelect.o:
 	g++ -std=c++11 -c $(sourcepath)CharacterSelect.cpp -I $(headerpath) -o $(objpath)CharacterSelect.o $(LFLAGS)
+InventoryManager.o: Team.o Character.o
+	g++ -std=c++11 -c $(sourcepath)InventoryManager.cpp -I $(headerpath) -o $(objpath)InventoryManager.o $(LFLAGS)
 
 clean:
 	rm -rf *o $(FILE)

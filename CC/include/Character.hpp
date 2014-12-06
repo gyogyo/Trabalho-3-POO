@@ -27,6 +27,7 @@ class Character {
 	int willpower;
 	int status;
 	int skillcost;
+	int skillpts;
 
 //Metodos
 	public:
@@ -41,6 +42,7 @@ class Character {
 	int getSpeed();
 	int getStatus();
 	int getSkillCost();
+	int getSkillPts();
 
 	//Setters
 	void setStrenght(int, bool);
@@ -59,13 +61,18 @@ class Character {
 	void PrintItemsInfo();
 
 	//Manipulacao de items e inventario
+	int size();
 	void getItem(Item*);
 	double getTotalGold();
 	void spendGold(double);
+	void earnGold(double);
 	void equipWeapon(Item*);
 	void equipArmor(Item*);
 	void useItem(Item*);
 	void useItem(int);
+	void equipItem(int);
+	double removeItem(int);
+	
 
 	//Calculo de batalha
 	virtual void attack(Character*);

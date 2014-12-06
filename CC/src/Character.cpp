@@ -80,6 +80,10 @@ int Character::getSkillCost(){
 	return skillcost;
 }
 
+int Character::getSkillPts(){
+	return skillpts;
+}
+
 //Setters
 void Character::addHP(int Amount){
 	if((HP+Amount)<0) HP = 0; //HP não negativo.
@@ -153,10 +157,10 @@ void Character::setStatus(int Which, bool Flag){ //Flag é um bool, Which é o b
 void Character::PrintInfo(){ //Debug Print
 	string S = " "; //String Macro de espaco para escrever menos.
 	cout
-	<< "\nAlias: " << alias << endl
-	<< "HP:" << HP << "\nStr:" << strenght << "\nSpd:" << speed << "\nDex:" << dexterity << "\nCon:" << constitution << S << endl;
-	myitems.PrintInfo();
-	cout << "Atk: " << getAttackPoints() <<"\nDef:"<< getDefensePoints() << endl << endl;
+	<< "Nome: " << alias << endl
+	<< "HP: " << HP << "\nStr: " << strenght << "\nSpd: " << speed << "\nDex: " << dexterity << "\nCon: " << constitution << S << endl;
+	cout << "Atk: " << getAttackPoints() <<"\nDef: "<< getDefensePoints() << endl << endl;
+	cout << endl << "Pontos de status remanescentes: " << skillpts << endl;
 }
 
 void Character::PrintItemsInfo(){ //Debug Print
@@ -168,10 +172,19 @@ double Character::getTotalGold(){
 }
 
 void Character::spendGold(double a){
-	return myitems.spendGold(a);  
+	myitems.spendGold(a);  
+}
+
+void Character::earnGold(double a){
+	myitems.earnGold(a);  
+}
+
+int Character::size(){
+	return myitems.size();  
 }
 
 void Character::getItem(Item* New){
+	New->setOwner(this);
 	myitems.insertItem(New);  //Colocar um item no inventario.
 }
 
@@ -195,6 +208,16 @@ void Character::useItem(int Select){
 	Item* Selected = myitems.searchItem(Select);
 	if(Selected==NULL) return; //Se esse item estiver no inventorio
 	Selected->use();
+}
+
+void Character::equipItem(int Select){
+	Item* Selected = myitems.searchItem(Select);
+	if(Selected==NULL) return; //Se esse item estiver no inventorio
+	Selected->equip();
+}
+
+double Character::removeItem(int Select){
+	return myitems.removeItem(Select);
 }
 
 //Em ambas as contas, os numeros fracionados foram simplificados como fator comum de 10.

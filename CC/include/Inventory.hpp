@@ -34,6 +34,7 @@ class Inventory {
 	//Enquanto o atributo spaces indica o espaco disponivel, setSpaces(int) altera o espaco absoluto.
 	//Se for colocado um número menor que o tamanho atual, os items extras serao forcadamente removidos.
 	void setSpaces(int);
+	int size();
 
 	//Operacoes com items
 	//Retorna UM item com o devido nome.
@@ -45,7 +46,7 @@ class Inventory {
 	//Remove TODOS os items de mesmo nome.
 	void removeItem(string);
 	//Remove o item com a posicao absoluta.
-	void removeItem(int);
+	double removeItem(int);
 
 	//Retorna soma total de ataque.
 	int itemAtkPts();

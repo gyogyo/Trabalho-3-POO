@@ -1,7 +1,9 @@
 #ifndef ITEM_H_
 #define ITEM_H_
-
+#include <iostream>
 #include <string>
+#include <thread>
+#include <chrono>
 class Character;
 using namespace std;
 
@@ -27,6 +29,7 @@ class Item {
 	int getPoints();
 	Character* getOwner();
 	virtual void use() = 0;
+	virtual void equip();
 };
 
 

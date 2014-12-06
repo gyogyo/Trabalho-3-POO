@@ -6,6 +6,7 @@
 #include <Equipment.hpp>
 #include <Loja.hpp>
 #include <CharacterSelect.hpp>
+#include <InventoryManager.hpp>
 #include <deque>
 #include <thread>
 #include <chrono>
@@ -24,6 +25,8 @@ Loja* Shop = new Loja();
 Team* Teams[2];
 Teams[0] = new Team("Red",red);
 Teams[1] = new Team("Blue",blue);
+
+InventoryManager* statusScreen = new InventoryManager(Teams[0]);
 
 bool Menu = true;
 //Montar rodada e times.
@@ -79,9 +82,7 @@ while(Menu)
 
 		case 4:
 			cout << "\033[2J\033[1;1H";
-			Teams[0]->PrintInfo();
-			cout << "\n\nDigite um numero qualquer para voltar: ";
-			cin >> Option;
+			statusScreen->invManage();
 			break;
 			
 		case 5:
@@ -100,6 +101,8 @@ while(Menu)
 //Liberar Memoria
 for (int i=0;i<2;i++) delete Teams[i];
 delete Shop;
+delete statusScreen;
+delete PlayerSelect;
 return 0;
 }
 

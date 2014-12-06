@@ -11,6 +11,7 @@ class Weapon : public Item {
 	Weapon(string,double,int);
 	Weapon(Weapon&);
 	void use();
+	void equip();
 };
 
 class Armor : public Item {
@@ -19,6 +20,7 @@ class Armor : public Item {
 	Armor(string,double,int);
 	Armor(Armor&);
 	void use();
+	void equip();
 };
 
 class HealthPotion : public Item {

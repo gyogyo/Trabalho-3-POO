@@ -14,9 +14,12 @@ Weapon::Weapon(string Name, double Price, int Attack) : Item(Name, Price, 0){
 Weapon::Weapon(Weapon& Source) : Item(Source){}
 
 void Weapon::use(){
-	getOwner()->equipWeapon(this);
+	cout << "Item invalido: 'nao utilizavel'" << endl;
 }
 
+void Weapon::equip(){
+	getOwner()->equipWeapon(this);
+}
 //Armor class
 
 Armor::Armor(string Name, double Price, int Defense) : Item(Name, Price, 0){
@@ -28,6 +31,10 @@ Armor::Armor(string Name, double Price, int Defense) : Item(Name, Price, 0){
 Armor::Armor(Armor& Source) : Item(Source){}
 
 void Armor::use(){
+	cout << "Item invalido: 'nao utilizavel'" << endl;
+}
+
+void Armor::equip(){
 	getOwner()->equipArmor(this);
 }
 

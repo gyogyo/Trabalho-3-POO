@@ -40,6 +40,10 @@ void Inventory::earnGold(double Amount){
 	gold += Amount;
 }
 
+int Inventory::size(){
+	return items.size();
+}
+
 //Enquanto o atributo spaces indica o espaca disponivel, setSpaces(int) altera o espaco absoluto.
 //Se for colocado um numero menor que o tamanho atual, os items extras serao forcadamente removidos.
 
@@ -75,7 +79,7 @@ void Inventory::insertItem(Item* New){
 	if(spaces>0){
 		items.push_back(NewPair);
 		spaces--;
-		}
+	}
 }
 
 //Remove TODOS os items de mesmo nome.
@@ -91,11 +95,13 @@ void Inventory::removeItem(string Name){
 
 //Remove o item com a posicao absoluta.
 
-void Inventory::removeItem(int Num){
+double Inventory::removeItem(int Num){
+	double aux = get<0>(items[Num])->getPrice();
 	if(Num < items.size()){
 		items.erase(items.begin()+Num);
 		spaces++;
-		}
+	}
+	return aux;
 }
 
 //Retorna soma total de ataque.
