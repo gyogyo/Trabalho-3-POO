@@ -2,24 +2,23 @@
 #define EQUIPMENT_H_
 
 #include <Item.hpp>
+#include <Gear.hpp>
 #include <string>
 using namespace std;
 
-class Weapon : public Item {
+class Weapon : public Gear {
 //Metodos
 	public:
 	Weapon(string,double,int);
 	Weapon(Weapon&);
-	void use(); // weapon e armor tem use pois aparecem no inventário durante a batalha, embora nao tenha mesmo uma utilidade usa-las durante a luta
 	void equip();
 };
 
-class Armor : public Item {
+class Armor : public Gear {
 //Metodos
 	public:
 	Armor(string,double,int);
 	Armor(Armor&);
-	void use();
 	void equip();
 };
 
@@ -30,6 +29,7 @@ class HealthPotion : public Item {
 	HealthPotion(HealthPotion&);
 	~HealthPotion();
 	virtual void use();
+	int check();
 };
 
 class ManaPotion : public Item {
@@ -39,6 +39,7 @@ class ManaPotion : public Item {
 	ManaPotion(ManaPotion&);
 	~ManaPotion();
 	virtual void use();
+	int check();
 };
 
 #endif

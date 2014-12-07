@@ -50,10 +50,3 @@ Character* Item::getOwner()
 {
 	return owner;
 }
-
-void Item::equip()
-{
-	cout << "\033[2J\033[1;1H";
-	cout << "Item invalido: 'nao equipavel'" << endl;
-	this_thread::sleep_for(std::chrono::milliseconds(2000));
-}

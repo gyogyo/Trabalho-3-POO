@@ -4,10 +4,12 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <Usable.hpp>	
 class Character;
 using namespace std;
 
-class Item {
+class Item : public Usable
+{
 
 //Atributos
 	private:
@@ -30,9 +32,8 @@ class Item {
 	double getPrice();
 	int getPoints();
 	Character* getOwner();
+	virtual int check()=0;
 	//Funçoes proprias de item
-	virtual void use() = 0;
-	virtual void equip();
 };
 
 

@@ -51,12 +51,6 @@ void Character::randomGenerate()
 
 }
 
-Character* Character::clone()
-{
-	Character* clone = new Character(alias,strenght,speed,dexterity,constitution);
-	return clone;
-}
-
 //Getters
 
 string Character::getName()
@@ -267,8 +261,15 @@ void Character::useItem<int>(int Select)
 void Character::equipItem(int Select)
 {
 	Item* Selected = myitems.searchItem(Select);
+	if(Selected->check()==1) // se for uma poção
+	{
+		cout << endl <<  "Item invalido: 'item nao equipavel'" << endl;
+		this_thread::sleep_for(std::chrono::milliseconds(2000));
+		return;
+	}
+	Gear* Equipping = (Gear*) Selected;
 	if(Selected==NULL) return; //Se esse item estiver no inventorio
-	Selected->equip();
+	Equipping->equip();
 }
 
 template<>
@@ -313,8 +314,6 @@ bool Character::isBlocking()
 
 //O gerador de numeros aleatorios dessa funcao ja calcula em porcentagem. (De 0 a 100)
 //A escolha de evitar numeros fracionados foi feita para simplificacao.
-//A chance de ataque critico e 0.02 * (XP/2) = 0.01 * XP = XP%
-//A chance de erro e 0.1/XP = (10/XP)%
 //Essas chances serao ativadas se o RNG gerar um numero porcentual menor que as formulas.
 
 void Character::attack(Character* Enemy)

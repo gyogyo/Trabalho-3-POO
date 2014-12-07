@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <Inventory.hpp>
 #include <Enum.hpp>
+#include <Gear.hpp>
 using namespace std;
 
 class Character {
@@ -35,7 +36,7 @@ class Character {
 	Character(string);
 	Character(string,int,int,int,int);
 	void randomGenerate(); //setta atributos de forma aleatoria
-	virtual Character* clone(); //construtor de copia
+	virtual Character* clone()=0; //construtor de copia
 	//Getters
 	string getName(); 
 	int getHP();
@@ -81,7 +82,7 @@ class Character {
 	void block(bool);
 	bool isBlocking();
 	virtual void attack(Character*);
-	virtual void specialAttack(Character*);
+	virtual void specialAttack(Character*)=0;
 	virtual int getDefensePoints();
 	virtual int getAttackPoints();
 

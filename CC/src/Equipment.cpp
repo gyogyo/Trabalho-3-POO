@@ -5,39 +5,30 @@ using namespace std;
 
 //Weapon class
 
-Weapon::Weapon(string Name, double Price, int Attack) : Item(Name, Price, 0)
+Weapon::Weapon(string Name, double Price, int Attack) : Gear(Name, Price, 0)
 {
 	if(Attack > 9) Attack = 9; //Impor limites nos atributos
 	else if (Attack < 1) Attack = 1;
 	setPoints(Attack);
 }
 
-Weapon::Weapon(Weapon& Source) : Item(Source){}
-
-void Weapon::use()
-{
-	cout << "Item invalido: 'nao utilizavel'" << endl;
-}
+Weapon::Weapon(Weapon& Source) : Gear(Source){}
 
 void Weapon::equip()
 {
 	getOwner()->equipWeapon(this);
 }
+
 //Armor class
 
-Armor::Armor(string Name, double Price, int Defense) : Item(Name, Price, 0)
+Armor::Armor(string Name, double Price, int Defense) : Gear(Name, Price, 0)
 {
 	if(Defense > 20) Defense = 20; //Impor limites.
 	else if (Defense < 1) Defense = 1;
 	setPoints(Defense);
 }
 
-Armor::Armor(Armor& Source) : Item(Source){}
-
-void Armor::use()
-{
-	cout << "Item invalido: 'nao utilizavel'" << endl;
-}
+Armor::Armor(Armor& Source) : Gear(Source){}
 
 void Armor::equip()
 {
@@ -60,6 +51,11 @@ void HealthPotion::use()
 	getOwner()->removeItem(((Item*)this)); // deleta a potion
 }
 
+int HealthPotion::check()
+{
+	return 1;
+}
+
 //Mana Potion
 
 ManaPotion::ManaPotion(string Name, double Price, int Restore) : Item(Name, Price, 0)
@@ -74,4 +70,9 @@ void ManaPotion::use()
 {
 	getOwner()->addMP(getPoints()); // usa a pot
 	getOwner()->removeItem(((Item*)this)); // deleta a potion
+}
+
+int ManaPotion::check()
+{
+	return 1;
 }
